@@ -1,0 +1,32 @@
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.exe.config
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.exe
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.pdb
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.csprojResolveAssemblyReference.cache
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Form1.resources
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Properties.Resources.resources
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.csproj.GenerateResource.Cache
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.exe
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.pdb
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Student.resources
+c:\users\morelera\documents\visual studio 2013\Projects\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Teacher.resources
+C:\Users\MoreLera\Desktop\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.exe.config
+C:\Users\MoreLera\Desktop\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.exe
+C:\Users\MoreLera\Desktop\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.pdb
+G:\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.exe.config
+G:\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.exe
+G:\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.pdb
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.exe.config
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.exe
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.pdb
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.csprojResolveAssemblyReference.cache
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Form1.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Properties.Resources.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Student.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Teacher.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.csproj.GenerateResource.Cache
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.exe
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\ForDeeploma.pdb
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\MySql.Data.dll
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\MySql.Data.xml
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\bin\Debug\Newtonsoft.Json.dll
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Admin.resources
