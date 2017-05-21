@@ -52,10 +52,16 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(11, 12);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 24);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(467, 424);
+            this.dataGridView1.Size = new System.Drawing.Size(490, 424);
             this.dataGridView1.TabIndex = 1;
             // 
             // contextMenuDG
@@ -70,19 +76,19 @@
             // ljfdbnmToolStripMenuItem
             // 
             this.ljfdbnmToolStripMenuItem.Name = "ljfdbnmToolStripMenuItem";
-            this.ljfdbnmToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ljfdbnmToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.ljfdbnmToolStripMenuItem.Text = "lj,fdbnm";
             // 
             // elfkbnmToolStripMenuItem
             // 
             this.elfkbnmToolStripMenuItem.Name = "elfkbnmToolStripMenuItem";
-            this.elfkbnmToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.elfkbnmToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.elfkbnmToolStripMenuItem.Text = "elfkbnm";
             // 
             // bpvtybnmToolStripMenuItem
             // 
             this.bpvtybnmToolStripMenuItem.Name = "bpvtybnmToolStripMenuItem";
-            this.bpvtybnmToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bpvtybnmToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.bpvtybnmToolStripMenuItem.Text = "bpvtybnm";
             // 
             // contextMenuStrip1

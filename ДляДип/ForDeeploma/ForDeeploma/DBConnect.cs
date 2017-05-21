@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using ForDeeploma;
 using System.ComponentModel;
+using System.Data;
 
 namespace ForDeeploma
 {
@@ -27,7 +28,6 @@ namespace ForDeeploma
         {
             Initialize();
         }
-
         private void Initialize()
         {
             configuration = readJsonConf();
@@ -36,7 +36,6 @@ namespace ForDeeploma
             configuration.database + ";" + "UID=" + configuration.uid + ";" + "PASSWORD=" + configuration.password + ";";
             dbConnect = new MySqlConnection(connectionString);
         }
-
         private jsonConfig readJsonConf()
         {
             using (StreamReader streamOfFile = new StreamReader("settings.json"))
@@ -47,7 +46,6 @@ namespace ForDeeploma
             }
             
         }
-
         public Boolean openConnection(){
             try
             {
@@ -69,7 +67,6 @@ namespace ForDeeploma
                 return false;
             }
         }
-
         public Boolean CloseConnection()
         {
             try
@@ -83,14 +80,13 @@ namespace ForDeeploma
                 return false;
             }
         }
-
-        public Boolean testConnection()
+        public Boolean testConnection(string dbString)
         {
+            dbConnect = new MySqlConnection(dbString);
             Boolean isOpen = openConnection();
             Boolean isClose = CloseConnection();
             return isOpen && isClose;
         }
-
         public BindingList<GlobalClass.userTableMapper> SelectUsers()
         {
             string query = "select * from loginusers";
@@ -127,7 +123,93 @@ namespace ForDeeploma
                 return tempUserList;
             }
         }
+        public System.Data.DataTable SelectUsersInfo()
+        {
+            string query = "select * from fullusersinfo";
+            System.Data.DataTable tempUserList = new System.Data.DataTable();   
+            
 
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempUserList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                
+                //return list to be displayed
+                return tempUserList;
+            }
+            else
+            {
+                return tempUserList;
+            }
+        }
+        public System.Data.DataTable SelectGroupsInfo()
+        {
+            string query = "select * from groupinfoview";
+            System.Data.DataTable tempList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempList;
+            }
+            else
+            {
+                return tempList;
+            }
+        }
+        public System.Data.DataTable SelectRolesInfo()
+        {
+            string query = "select a.id, a.name as `Название`, IF((`a`.`allowRead` = 1),'Да','Нет') AS `Чтение`, IF((`a`.`allowWrite` = 1), 'Да', 'Нет') AS `Запись`,IF((`a`.`Admin` = 1), 'Да', 'Нет') AS `Полный доступ` from roles as a";
+            System.Data.DataTable tempList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempList;
+            }
+            else
+            {
+                return tempList;
+            }
+        }
         public GlobalClass.userRoleMapper roleSelectedUser(int ID)
         {
             string query = "select * from userrole where ID = " + ID + " limit 1";

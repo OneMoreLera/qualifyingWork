@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.LoginSelector = new System.Windows.Forms.ComboBox();
             this.passwdInput = new System.Windows.Forms.TextBox();
@@ -36,6 +37,7 @@
             this.Login = new System.Windows.Forms.Button();
             this.Close = new System.Windows.Forms.Button();
             this.LoginError = new System.Windows.Forms.Label();
+            this.settings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -113,11 +115,22 @@
             this.LoginError.Size = new System.Drawing.Size(0, 13);
             this.LoginError.TabIndex = 8;
             // 
+            // settings
+            // 
+            this.settings.Image = ((System.Drawing.Image)(resources.GetObject("settings.Image")));
+            this.settings.Location = new System.Drawing.Point(12, 126);
+            this.settings.Name = "settings";
+            this.settings.Size = new System.Drawing.Size(29, 23);
+            this.settings.TabIndex = 9;
+            this.settings.UseVisualStyleBackColor = true;
+            this.settings.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(169, 250);
+            this.Controls.Add(this.settings);
             this.Controls.Add(this.LoginError);
             this.Controls.Add(this.Close);
             this.Controls.Add(this.Login);
@@ -147,6 +160,7 @@
         private System.Windows.Forms.Button Login;
         private System.Windows.Forms.Button Close;
         private System.Windows.Forms.Label LoginError;
+        private System.Windows.Forms.Button settings;
     }
 }
 

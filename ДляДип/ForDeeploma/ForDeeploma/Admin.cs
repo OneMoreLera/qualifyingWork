@@ -13,6 +13,8 @@ namespace ForDeeploma
     public partial class Admin : Form
     {
         private GlobalClass.userTableMapper selectedUser;
+        private System.Windows.Forms.DataGridView AdminGridView;
+        DBConnect elementBase = new DBConnect();
         public Admin()
         {
             InitializeComponent();
@@ -21,41 +23,89 @@ namespace ForDeeploma
             this.selectedUser = sU;
             this.Text = this.selectedUser.reprUser;
         }
+        private void generateTable()
+        {
+            if (this.PanelLayout.Controls.Contains(this.AdminGridView))
+            {
+                this.PanelLayout.Controls.Remove(this.AdminGridView);
+                this.AdminGridView.Dispose();
+
+            }
+            this.AdminGridView = new System.Windows.Forms.DataGridView();
+            this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AdminGridView)).BeginInit();
+            this.AdminGridView.AllowUserToOrderColumns = true;
+            this.AdminGridView.ContextMenuStrip = this.contextData;
+            this.AdminGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AdminGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.AdminGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.AdminGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AdminGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AdminGridView.Location = new System.Drawing.Point(12, 27);
+            this.AdminGridView.Name = "AdminGridView";
+            this.AdminGridView.Size = new System.Drawing.Size(625, 266);
+            this.AdminGridView.TabIndex = 1;
+            this.AdminGridView.AllowUserToAddRows = false;
+            this.AdminGridView.AllowUserToDeleteRows = false;
+            this.AdminGridView.AllowUserToResizeColumns = false;
+            this.AdminGridView.AllowUserToResizeRows = false;
+            this.PanelLayout.Controls.Add(this.AdminGridView);
+            ((System.ComponentModel.ISupportInitialize)(this.AdminGridView)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
         private void Admin_Load(object sender, EventArgs e)
         {
             ForDeeploma.GlobalClass.incrementCounter();
         }
-
         private void Admin_FormClosed(object sender, FormClosedEventArgs e)
         {
             ForDeeploma.GlobalClass.decrementCounter();
         }
-
         private void выйтиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form1 LoginWin = new Form1();
             LoginWin.Show();
             this.Close();
         }
-
         private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        private void пользовательToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.generateTable();
+            this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo();
+            this.AdminGridView.Columns["ID"].Visible = false;
+        }
+        private void группыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.generateTable();
+            this.AdminGridView.DataSource = this.elementBase.SelectGroupsInfo();
+            this.AdminGridView.Columns["ID"].Visible = false;
+        }
+        private void ролиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.generateTable();
+            this.AdminGridView.DataSource = this.elementBase.SelectRolesInfo();
+            this.AdminGridView.Columns["ID"].Visible = false;
+        }
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddUser Adding = new AddUser();
-            Adding.Show();
+
         }
 
-        private void добавитьToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Groups AddGroups = new Groups();
-            AddGroups.Show();
+
         }
 
-        
+        private void удалитьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
 
+        }
+    
     }
 }

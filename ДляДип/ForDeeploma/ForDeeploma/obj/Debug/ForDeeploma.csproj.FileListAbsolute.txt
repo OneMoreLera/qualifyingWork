@@ -46,3 +46,6 @@ C:\Users\MoreLera\Documents\GitHub\qualifyingWork\ДляДип\ForDeeploma\ForDe
 C:\Users\MoreLera\Documents\GitHub\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.csproj.GenerateResource.Cache
 C:\Users\MoreLera\Documents\GitHub\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.AddUser.resources
 C:\Users\MoreLera\Documents\GitHub\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Groups.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.AddUser.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Groups.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Settings.resources

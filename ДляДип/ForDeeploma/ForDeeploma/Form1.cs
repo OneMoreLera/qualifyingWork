@@ -71,6 +71,16 @@ namespace ForDeeploma
         {
             this.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Settings sett = new Settings();
+            sett.ShowDialog(this);
+            elementBase = new DBConnect();
+            usersLogin = elementBase.SelectUsers();
+            LoginSelector.DataSource = usersLogin;
+            LoginSelector.DisplayMember = "reprUser";
+        }
         
     }
 }
