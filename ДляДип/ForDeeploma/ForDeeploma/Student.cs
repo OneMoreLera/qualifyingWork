@@ -12,6 +12,12 @@ namespace ForDeeploma
 {
     public partial class Student : Form
     {
+        private GlobalClass.userTableMapper selectedUser;
+        public void setUser(GlobalClass.userTableMapper sU)
+        {
+            this.selectedUser = sU;
+            this.Text = this.selectedUser.reprUser;
+        }
         public Student()
         {
             InitializeComponent();
@@ -25,6 +31,18 @@ namespace ForDeeploma
         private void Student_FormClosed(object sender, FormClosedEventArgs e)
         {
             ForDeeploma.GlobalClass.decrementCounter();
+        }
+
+        private void пройденныеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1 LoginWin = new Form1();
+            LoginWin.Show();
+            this.Close();
         }
     }
 }

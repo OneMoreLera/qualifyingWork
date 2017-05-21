@@ -48,11 +48,13 @@ namespace ForDeeploma
                 else if (SelectedRole.AllowWrite)
                 {
                     Teacher teacher = new Teacher();
+                    teacher.setUser(selectedUser);
                     teacher.Show();
                     this.Close();
                 }
                 else if(SelectedRole.AllowRead){
                     Student student = new Student();
+                    student.setUser(selectedUser);
                     student.Show();
                     this.Close();
                 }

@@ -43,5 +43,19 @@ namespace ForDeeploma
             this.Close();
         }
 
+        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddUser Adding = new AddUser();
+            Adding.Show();
+        }
+
+        private void добавитьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Groups AddGroups = new Groups();
+            AddGroups.Show();
+        }
+
+        
+
     }
 }

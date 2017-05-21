@@ -12,9 +12,16 @@ namespace ForDeeploma
 {
     public partial class Teacher : Form
     {
+        private GlobalClass.userTableMapper selectedUser;
+        public void setUser(GlobalClass.userTableMapper sU)
+        {
+            this.selectedUser = sU;
+            this.Text = this.selectedUser.reprUser;
+        }
         public Teacher()
         {
             InitializeComponent();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -25,6 +32,7 @@ namespace ForDeeploma
         private void Teacher_Load(object sender, EventArgs e)
         {
             ForDeeploma.GlobalClass.incrementCounter();
+            this.dataGridView1.ContextMenuStrip = this.contextMenuDG;
         }
 
         private void Teacher_FormClosed(object sender, FormClosedEventArgs e)
@@ -32,5 +40,6 @@ namespace ForDeeploma
 
             ForDeeploma.GlobalClass.decrementCounter();
         }
+
     }
 }
