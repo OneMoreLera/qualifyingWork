@@ -41,5 +41,10 @@ namespace ForDeeploma
             ForDeeploma.GlobalClass.decrementCounter();
         }
 
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }

@@ -123,6 +123,105 @@ namespace ForDeeploma
                 return tempUserList;
             }
         }
+        public BindingList<GlobalClass.userGroupMapper> SelectGroups()
+        {
+            string query = @"SELECT a.ID, a.Name FROM 
+                                group_info as a";
+            BindingList<GlobalClass.userGroupMapper> tempGroupList = new BindingList<GlobalClass.userGroupMapper>();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    GlobalClass.userGroupMapper tempUser = new GlobalClass.userGroupMapper(I, N);
+                    tempGroupList.Add(tempUser);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempGroupList;
+            }
+            else
+            {
+                return tempGroupList;
+            }
+        }
+        public GlobalClass.userCreateMapper SelectUserWhere(int id)
+        {
+            string query = @"SELECT a.ID, b.Name, b.Surname, b.Patronym,a.ID_info, a.ID_group, a.passwd FROM aquser as a
+                            JOIN user_info as b ON b.ID = a.ID_info
+                            where a.ID = " + id.ToString() + " limit 1";
+            GlobalClass.userCreateMapper tempUser = new GlobalClass.userCreateMapper();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int II = (int)((long)dataReader["ID_info"]);
+                    int IG = (int)((long)dataReader["ID_group"]);
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    string S = (string)dataReader["Surname"];
+                    string P = (string)dataReader["Patronym"];
+                    string Pw = (string)dataReader["passwd"];
+                    tempUser = new GlobalClass.userCreateMapper(I, N, S, P, II, IG, Pw);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempUser;
+            }
+            else
+            {
+                return tempUser;
+            }
+        }
+
+        public void UpdateUser(GlobalClass.userCreateMapper AlteringUser)
+        {
+            //Open connection
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"UPDATE user_info 
+                                    SET Name='" + AlteringUser.Name + @"',
+                                        Surname='" + AlteringUser.Surname + @"',
+                                        Patronym='" + AlteringUser.Patronim + @"'
+                                    WHERE ID=" + AlteringUser.id_info;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                query = @"UPDATE aquser 
+                                    SET ID_group=" + AlteringUser.id_group + @",
+                                        passwd='" + AlteringUser.MD5HashPass + @"'
+                                    WHERE ID=" + AlteringUser.ID;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
         public System.Data.DataTable SelectUsersInfo()
         {
             string query = "select * from fullusersinfo";

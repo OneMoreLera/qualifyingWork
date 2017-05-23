@@ -50,3 +50,4 @@ F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Groups.resources
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Settings.resources
 C:\Users\MoreLera\Documents\GitHub\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Settings.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.About.resources

@@ -64,6 +64,30 @@ namespace ForDeeploma
                 this.MD5HashPass = passwd;
             }
         }
+        public class userCreateMapper
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string Surname { get; set; }
+            public string Patronim { get; set; }
+            public int id_info { get; set; }
+            public int id_group  { get; set; }
+            public string MD5HashPass { get; set; }
+            public userCreateMapper()
+            {
+
+            }
+            public userCreateMapper(int ID, string Name, string Surname, string Patronim,int idInfo, int idGroup, string passwd)
+            {
+                this.ID = ID;
+                this.Name = Name;
+                this.Surname = Surname;
+                this.Patronim = Patronim;
+                this.id_info = idInfo;
+                this.id_group = idGroup;
+                this.MD5HashPass = passwd;
+            }
+        }
         public class userRoleMapper
         {
             public int ID { get; set; }
@@ -85,6 +109,18 @@ namespace ForDeeploma
                 this.AllowWrite = _write;
                 this.Admin = _admin;
             }
+        }
+        public class userGroupMapper
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public userGroupMapper() { }
+            public userGroupMapper(int Id, string _Name)
+            {
+                this.ID = Id;
+                this.Name = _Name;
+            }
+            
         }
     }
 }

@@ -14,6 +14,7 @@ namespace ForDeeploma
     {
         private GlobalClass.userTableMapper selectedUser;
         private System.Windows.Forms.DataGridView AdminGridView;
+        private DataGridViewCellEventArgs mouseLocation;
         DBConnect elementBase = new DBConnect();
         public Admin()
         {
@@ -27,6 +28,7 @@ namespace ForDeeploma
         {
             if (this.PanelLayout.Controls.Contains(this.AdminGridView))
             {
+                this.AdminGridView.CellMouseEnter -= new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellMouseEnter);
                 this.PanelLayout.Controls.Remove(this.AdminGridView);
                 this.AdminGridView.Dispose();
 
@@ -35,7 +37,6 @@ namespace ForDeeploma
             this.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AdminGridView)).BeginInit();
             this.AdminGridView.AllowUserToOrderColumns = true;
-            this.AdminGridView.ContextMenuStrip = this.contextData;
             this.AdminGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AdminGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.AdminGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
@@ -49,6 +50,8 @@ namespace ForDeeploma
             this.AdminGridView.AllowUserToDeleteRows = false;
             this.AdminGridView.AllowUserToResizeColumns = false;
             this.AdminGridView.AllowUserToResizeRows = false;
+            this.AdminGridView.RowTemplate.ContextMenuStrip = this.contextData;
+            this.AdminGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellMouseEnter);
             this.PanelLayout.Controls.Add(this.AdminGridView);
             ((System.ComponentModel.ISupportInitialize)(this.AdminGridView)).EndInit();
             this.ResumeLayout(false);
@@ -94,18 +97,25 @@ namespace ForDeeploma
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            AddUser newUser = new AddUser();
+            newUser.ShowDialog(this);
         }
 
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)//це изменить
         {
-
+            int rowId = (int)((long)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+            AddUser newUser = new AddUser(rowId);
+            newUser.ShowDialog(this);
         }
 
         private void удалитьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            int rowId = (int)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value;
 
         }
-    
+        private void dataGridView_CellMouseEnter(object sender,DataGridViewCellEventArgs location)
+        {
+            this.mouseLocation = location;
+        }
     }
 }
