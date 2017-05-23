@@ -44,5 +44,10 @@ namespace ForDeeploma
             LoginWin.Show();
             this.Close();
         }
+
+        private void порядокПрохожденияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

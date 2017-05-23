@@ -32,9 +32,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.тестыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокДосутпныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.инфоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.моиРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.инфоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.порядокПрохожденияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оцениваниеРезультатовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -78,15 +78,6 @@
             this.списокДосутпныхToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.списокДосутпныхToolStripMenuItem.Text = "Список тестов";
             // 
-            // инфоToolStripMenuItem
-            // 
-            this.инфоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.порядокПрохожденияToolStripMenuItem,
-            this.оцениваниеРезультатовToolStripMenuItem});
-            this.инфоToolStripMenuItem.Name = "инфоToolStripMenuItem";
-            this.инфоToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.инфоToolStripMenuItem.Text = "Инфо";
-            // 
             // моиРезультатыToolStripMenuItem
             // 
             this.моиРезультатыToolStripMenuItem.Name = "моиРезультатыToolStripMenuItem";
@@ -100,11 +91,21 @@
             this.выходToolStripMenuItem.Text = "Выйти";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
+            // инфоToolStripMenuItem
+            // 
+            this.инфоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.порядокПрохожденияToolStripMenuItem,
+            this.оцениваниеРезультатовToolStripMenuItem});
+            this.инфоToolStripMenuItem.Name = "инфоToolStripMenuItem";
+            this.инфоToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.инфоToolStripMenuItem.Text = "Инфо";
+            // 
             // порядокПрохожденияToolStripMenuItem
             // 
             this.порядокПрохожденияToolStripMenuItem.Name = "порядокПрохожденияToolStripMenuItem";
             this.порядокПрохожденияToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.порядокПрохожденияToolStripMenuItem.Text = "Порядок прохождения";
+            this.порядокПрохожденияToolStripMenuItem.Click += new System.EventHandler(this.порядокПрохожденияToolStripMenuItem_Click);
             // 
             // оцениваниеРезультатовToolStripMenuItem
             // 
