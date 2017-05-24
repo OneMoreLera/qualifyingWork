@@ -78,6 +78,7 @@
             this.passwdT.Name = "passwdT";
             this.passwdT.Size = new System.Drawing.Size(126, 20);
             this.passwdT.TabIndex = 5;
+            this.passwdT.TextChanged += new System.EventHandler(this.passwdT_TextChanged);
             // 
             // label2
             // 

@@ -16,6 +16,7 @@ namespace ForDeeploma
         private System.Windows.Forms.DataGridView AdminGridView;
         private DataGridViewCellEventArgs mouseLocation;
         DBConnect elementBase = new DBConnect();
+        private int selectedTab;
         public Admin()
         {
             InitializeComponent();
@@ -58,6 +59,7 @@ namespace ForDeeploma
             this.PerformLayout();
 
         }
+
         private void Admin_Load(object sender, EventArgs e)
         {
             ForDeeploma.GlobalClass.incrementCounter();
@@ -78,18 +80,21 @@ namespace ForDeeploma
         }
         private void пользовательToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.selectedTab = 0;
             this.generateTable();
-            this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo();
+            this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo(this.selectedUser.ID);
             this.AdminGridView.Columns["ID"].Visible = false;
         }
         private void группыToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.selectedTab = 1;
             this.generateTable();
             this.AdminGridView.DataSource = this.elementBase.SelectGroupsInfo();
             this.AdminGridView.Columns["ID"].Visible = false;
         }
         private void ролиToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.selectedTab = 2;
             this.generateTable();
             this.AdminGridView.DataSource = this.elementBase.SelectRolesInfo();
             this.AdminGridView.Columns["ID"].Visible = false;
@@ -97,21 +102,56 @@ namespace ForDeeploma
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddUser newUser = new AddUser();
-            newUser.ShowDialog(this);
+            if (this.selectedTab == 0)
+            {
+                AddUser newUser = new AddUser();
+                newUser.ShowDialog(this);
+                this.generateTable();
+                this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo(this.selectedUser.ID);
+                this.AdminGridView.Columns["ID"].Visible = false;
+            }
+            else if (this.selectedTab == 1)
+            {
+                Groups newGroup = new Groups();
+                newGroup.ShowDialog(this);
+                this.generateTable();
+                this.AdminGridView.DataSource = this.elementBase.SelectGroupsInfo();
+                this.AdminGridView.Columns["ID"].Visible = false;
+            }
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)//це изменить
         {
-            int rowId = (int)((long)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
-            AddUser newUser = new AddUser(rowId);
-            newUser.ShowDialog(this);
+            if (this.selectedTab == 0)
+            {
+                int rowId = (int)((long)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+                AddUser newUser = new AddUser(rowId);
+                newUser.ShowDialog(this);
+                this.generateTable();
+                this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo(this.selectedUser.ID);
+                this.AdminGridView.Columns["ID"].Visible = false;
+            }
+            else if (this.selectedTab == 1)
+            {
+                int rowId = (int)((long)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+                Groups newGroup = new Groups(rowId);
+                newGroup.ShowDialog(this);
+                this.generateTable();
+                this.AdminGridView.DataSource = this.elementBase.SelectGroupsInfo();
+                this.AdminGridView.Columns["ID"].Visible = false;
+            }
         }
 
         private void удалитьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            int rowId = (int)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value;
-
+            if (this.selectedTab == 0)
+            {
+                int rowId = (int)((long)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+                elementBase.DeleteUser(rowId);
+                this.generateTable();
+                this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo(this.selectedUser.ID);
+                this.AdminGridView.Columns["ID"].Visible = false;
+            }
         }
         private void dataGridView_CellMouseEnter(object sender,DataGridViewCellEventArgs location)
         {

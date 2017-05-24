@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `answer` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `answer` text,
   `true_variant` bit(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `aquser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `aquser` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `ID_group` bigint(20) DEFAULT NULL,
   `ID_info` bigint(20) DEFAULT NULL,
   `passwd` char(32) DEFAULT NULL,
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `group_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `group_info` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Name` char(25) DEFAULT NULL,
   `Description` text,
   PRIMARY KEY (`ID`)
@@ -184,7 +184,7 @@ DROP TABLE IF EXISTS `questions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `questions` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Question` text,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -207,7 +207,7 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Name` char(25) DEFAULT NULL,
   `allowRead` tinyint(4) DEFAULT NULL,
   `allowWrite` tinyint(4) DEFAULT NULL,
@@ -234,7 +234,7 @@ DROP TABLE IF EXISTS `test`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `test` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `ID_info` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_TEST_TEST_TEST_TEST_INF` (`ID_info`),
@@ -259,7 +259,7 @@ DROP TABLE IF EXISTS `test_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `test_info` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Amount` int(11) DEFAULT NULL,
   `Availble` bit(1) DEFAULT NULL,
   `Description` text,
@@ -310,7 +310,7 @@ DROP TABLE IF EXISTS `user_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_info` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Name` char(50) DEFAULT NULL,
   `Surname` char(50) DEFAULT NULL,
   `Patronym` char(50) DEFAULT NULL,
@@ -336,7 +336,7 @@ DROP TABLE IF EXISTS `user_result`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_result` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `ID_user` bigint(20) DEFAULT NULL,
   `ID_test` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ID`),
@@ -364,7 +364,7 @@ DROP TABLE IF EXISTS `usergroup`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usergroup` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `ID_info` bigint(20) DEFAULT NULL,
   `ID_role` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ID`),

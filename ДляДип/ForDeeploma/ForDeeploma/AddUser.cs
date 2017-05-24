@@ -13,14 +13,16 @@ namespace ForDeeploma
     public partial class AddUser : Form
     {
         private int userId;
-        private BindingList<GlobalClass.userGroupMapper>  groupList;
+        private BindingList<GlobalClass.classifMapper>  groupList;
         private GlobalClass.userCreateMapper AlteringUser;
         DBConnect elementBase = new DBConnect();
         Boolean newUser;
+        private Boolean passwdIsChange = false;
         public AddUser()
         {
             InitializeComponent();
             newUser = true;
+            AlteringUser = new GlobalClass.userCreateMapper();
         }
         public AddUser(int _Id)
         {
@@ -59,8 +61,22 @@ namespace ForDeeploma
             AlteringUser.Name = this.NameT.Text;
             AlteringUser.Patronim = this.PatronymT.Text;
             AlteringUser.id_group = (int)this.groupSelector.SelectedValue;
-            elementBase.UpdateUser(AlteringUser);
+            if (!this.newUser)
+            {
+                if(this.passwdIsChange)AlteringUser.MD5HashPass = GlobalClass.MD5Hashing(this.passwdT.Text);
+                elementBase.UpdateUser(AlteringUser);
+            }
+            else
+            {
+                AlteringUser.MD5HashPass = GlobalClass.MD5Hashing(this.passwdT.Text);
+                elementBase.InsertUserInfo(AlteringUser);
+            }
             this.Close();
+        }
+
+        private void passwdT_TextChanged(object sender, EventArgs e)
+        {
+            if (!this.passwdIsChange) this.passwdIsChange = true;
         }
     }
 }

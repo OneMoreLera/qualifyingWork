@@ -19,7 +19,6 @@ namespace ForDeeploma
             ForDeeploma.GlobalClass.globalWindowCounter--;
             if (ForDeeploma.GlobalClass.globalWindowCounter == 0) Application.Exit();
         }
-
         public static string MD5Hashing(string s)
         {
             using (MD5 md5Hash = MD5.Create())
@@ -30,7 +29,6 @@ namespace ForDeeploma
                 return sBuilder.ToString();
             }
         }
-
         public static Boolean VerifyMd5Hash(string i, string h)
         {
             using (MD5 md5Hash = MD5.Create())
@@ -88,6 +86,26 @@ namespace ForDeeploma
                 this.MD5HashPass = passwd;
             }
         }
+        public class GroupsCreateMapper
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public int id_info { get; set; }
+            public int id_role { get; set; }
+            public GroupsCreateMapper()
+            {
+
+            }
+            public GroupsCreateMapper(int ID, string Name, string Description, int idInfo, int idRole)
+            {
+                this.ID = ID;
+                this.Name = Name;
+                this.Description = Description;
+                this.id_info = idInfo;
+                this.id_role = idRole;
+            }
+        }
         public class userRoleMapper
         {
             public int ID { get; set; }
@@ -110,12 +128,12 @@ namespace ForDeeploma
                 this.Admin = _admin;
             }
         }
-        public class userGroupMapper
+        public class classifMapper
         {
             public int ID { get; set; }
             public string Name { get; set; }
-            public userGroupMapper() { }
-            public userGroupMapper(int Id, string _Name)
+            public classifMapper() { }
+            public classifMapper(int Id, string _Name)
             {
                 this.ID = Id;
                 this.Name = _Name;

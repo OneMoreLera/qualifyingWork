@@ -36,6 +36,7 @@ namespace ForDeeploma
             configuration.database + ";" + "UID=" + configuration.uid + ";" + "PASSWORD=" + configuration.password + ";";
             dbConnect = new MySqlConnection(connectionString);
         }
+        // конфигурирование коннектора к базе
         private jsonConfig readJsonConf()
         {
             using (StreamReader streamOfFile = new StreamReader("settings.json"))
@@ -87,6 +88,8 @@ namespace ForDeeploma
             Boolean isClose = CloseConnection();
             return isOpen && isClose;
         }
+        //===================================================
+        // запросы по таблице пользователей и окружающих их
         public BindingList<GlobalClass.userTableMapper> SelectUsers()
         {
             string query = "select * from loginusers";
@@ -121,40 +124,6 @@ namespace ForDeeploma
             else
             {
                 return tempUserList;
-            }
-        }
-        public BindingList<GlobalClass.userGroupMapper> SelectGroups()
-        {
-            string query = @"SELECT a.ID, a.Name FROM 
-                                group_info as a";
-            BindingList<GlobalClass.userGroupMapper> tempGroupList = new BindingList<GlobalClass.userGroupMapper>();
-
-            if (this.openConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    int I = (int)((long)dataReader["ID"]);
-                    string N = (string)dataReader["Name"];
-                    GlobalClass.userGroupMapper tempUser = new GlobalClass.userGroupMapper(I, N);
-                    tempGroupList.Add(tempUser);
-                }
-
-                //close Data Reader
-                dataReader.Close();
-
-                //close Connection
-                this.CloseConnection();
-
-                //return list to be displayed
-                return tempGroupList;
-            }
-            else
-            {
-                return tempGroupList;
             }
         }
         public GlobalClass.userCreateMapper SelectUserWhere(int id)
@@ -196,7 +165,6 @@ namespace ForDeeploma
                 return tempUser;
             }
         }
-
         public void UpdateUser(GlobalClass.userCreateMapper AlteringUser)
         {
             //Open connection
@@ -222,11 +190,11 @@ namespace ForDeeploma
                 this.CloseConnection();
             }
         }
-        public System.Data.DataTable SelectUsersInfo()
+        public System.Data.DataTable SelectUsersInfo(int ID)
         {
-            string query = "select * from fullusersinfo";
-            System.Data.DataTable tempUserList = new System.Data.DataTable();   
-            
+            string query = "select * from fullusersinfo as a where a.ID <>" + ID;
+            System.Data.DataTable tempUserList = new System.Data.DataTable();
+
 
             if (this.openConnection() == true)
             {
@@ -242,13 +210,138 @@ namespace ForDeeploma
                 //close Connection
                 this.CloseConnection();
 
-                
+
                 //return list to be displayed
                 return tempUserList;
             }
             else
             {
                 return tempUserList;
+            }
+        }
+        public void InsertUserInfo(GlobalClass.userCreateMapper InsertingUser)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO user_info (`Name`,`Surname`,`Patronym`)
+                                    VALUES ('" + InsertingUser.Name + "','" + InsertingUser.Surname + "','" + InsertingUser.Patronim + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id = -1;
+                inserted_id = cmd.LastInsertedId;
+                if (inserted_id > -1)
+                {
+                    query = @"INSERT INTO aquser (`ID_group`,`ID_info`,`passwd`)
+                                     VALUES ('" + InsertingUser.id_group + "','" + inserted_id + "','" + InsertingUser.MD5HashPass + "')";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();                
+                }
+                
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void DeleteUser(int deleteID)
+        {
+            
+
+            if (this.openConnection() == true)
+            {
+                string SelectUserInfoID = "select a.id_info from  aquser as a where ID=" + deleteID;
+                string DeleteUserQuery = "DELETE FROM aquser WHERE ID=" + deleteID;
+
+                MySqlCommand cmd = new MySqlCommand(SelectUserInfoID, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                dataReader.Read();
+                long II = (int)((long)dataReader["id_info"]);
+                dataReader.Close();
+    
+                string DeleteUserInfoQuery = "DELETE FROM `user_info` WHERE ID=" + II;
+                MySqlCommand cmd1 = new MySqlCommand(DeleteUserQuery, dbConnect);
+                cmd1.ExecuteNonQuery();
+
+                MySqlCommand cmd2 = new MySqlCommand(DeleteUserInfoQuery, dbConnect);
+                cmd2.ExecuteNonQuery();
+     
+                
+                
+                this.CloseConnection();
+            }
+        }
+        //=================================================
+        //запросы по группам
+        public GlobalClass.GroupsCreateMapper SelectRoleWhere(int id)
+        {
+            string query = @"select a.ID, b.Name, b.Description, a.ID_info, a.ID_role FROM usergroup as a
+                            JOIN group_info as b ON b.ID = a.ID_info
+                            where a.ID = " + id.ToString() + " limit 1";
+            GlobalClass.GroupsCreateMapper tempGroup = new GlobalClass.GroupsCreateMapper();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int II = (int)((long)dataReader["ID_info"]);
+                    int IR = (int)((long)dataReader["ID_role"]);
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    string D = (string)dataReader["Description"];
+                    tempGroup = new GlobalClass.GroupsCreateMapper(I, N, D, II, IR);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempGroup;
+            }
+            else
+            {
+                return tempGroup;
+            }
+        }
+        public BindingList<GlobalClass.classifMapper> SelectGroups()
+        {
+            string query = @"SELECT a.ID, a.Name FROM 
+                                group_info as a";
+            BindingList<GlobalClass.classifMapper> tempGroupList = new BindingList<GlobalClass.classifMapper>();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    GlobalClass.classifMapper tempUser = new GlobalClass.classifMapper(I, N);
+                    tempGroupList.Add(tempUser);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempGroupList;
+            }
+            else
+            {
+                return tempGroupList;
             }
         }
         public System.Data.DataTable SelectGroupsInfo()
@@ -278,6 +371,41 @@ namespace ForDeeploma
             else
             {
                 return tempList;
+            }
+        }
+        // ===============================================
+        //запросы по ролям
+        public BindingList<GlobalClass.classifMapper> SelectRoles()
+        {
+            string query = @"SELECT a.ID, a.Name FROM roles as a";
+            BindingList<GlobalClass.classifMapper> tempRolesList = new BindingList<GlobalClass.classifMapper>();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    GlobalClass.classifMapper tempRole = new GlobalClass.classifMapper(I, N);
+                    tempRolesList.Add(tempRole);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempRolesList;
+            }
+            else
+            {
+                return tempRolesList;
             }
         }
         public System.Data.DataTable SelectRolesInfo()
@@ -336,6 +464,6 @@ namespace ForDeeploma
                 return userRole;
             }
         }
-
+        //===================================================
     }
 }
