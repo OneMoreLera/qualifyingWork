@@ -47,7 +47,15 @@ namespace ForDeeploma
 
         private void порядокПрохожденияToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            About AboutWin = new About();
+            AboutWin.Show();
 
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutProgramm AboutPr = new AboutProgramm();
+            AboutPr.Show();
         }
     }
 }

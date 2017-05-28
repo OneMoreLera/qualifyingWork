@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
+  <data name="label2.Text" xml:space="preserve">
     <value>Каждый тест рассчитан на определенное количество времени и содержит конечное число вопросов по каждому предмету, доступному для тестирования. Студент проходит тестирование. отвечая на вопросы путем отмечания одного или нескольких полей. После прохождения студент нажимает кнопку проверить и ждет обработки результатов тестирования. После обработки, система выводит на экран количество правильных ответов и процентное соотношение.
 </value>
   </data>
