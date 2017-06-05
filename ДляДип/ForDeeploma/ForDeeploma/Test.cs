@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ForDeeploma
 {
-    public partial class About : Form
+    public partial class Test : Form
     {
-        public About()
+        public Test()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }
