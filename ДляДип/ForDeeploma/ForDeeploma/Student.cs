@@ -57,5 +57,11 @@ namespace ForDeeploma
             AboutProgramm AboutPr = new AboutProgramm();
             AboutPr.Show();
         }
+
+        private void сдатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Test testing = new Test();
+            testing.Show();
+        }
     }
 }
