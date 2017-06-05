@@ -49,8 +49,8 @@ namespace ForDeeploma
             this.AdminGridView.TabIndex = 1;
             this.AdminGridView.AllowUserToAddRows = false;
             this.AdminGridView.AllowUserToDeleteRows = false;
-            this.AdminGridView.AllowUserToResizeColumns = false;
-            this.AdminGridView.AllowUserToResizeRows = false;
+            this.AdminGridView.AllowUserToResizeColumns = true;
+            this.AdminGridView.AllowUserToResizeRows = true;
             this.AdminGridView.RowTemplate.ContextMenuStrip = this.contextData;
             this.AdminGridView.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellMouseEnter);
             this.PanelLayout.Controls.Add(this.AdminGridView);
@@ -150,6 +150,14 @@ namespace ForDeeploma
                 elementBase.DeleteUser(rowId);
                 this.generateTable();
                 this.AdminGridView.DataSource = this.elementBase.SelectUsersInfo(this.selectedUser.ID);
+                this.AdminGridView.Columns["ID"].Visible = false;
+            }
+            else if (this.selectedTab == 1)
+            {
+                int rowId = (int)((long)AdminGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+                elementBase.DeleteGroup(rowId);
+                this.generateTable();
+                this.AdminGridView.DataSource = this.elementBase.SelectGroupsInfo();
                 this.AdminGridView.Columns["ID"].Visible = false;
             }
         }

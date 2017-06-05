@@ -310,6 +310,76 @@ namespace ForDeeploma
                 return tempGroup;
             }
         }
+        public void UpdateGroup(GlobalClass.GroupsCreateMapper AlteringGroup)
+        {
+            //Open connection
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"UPDATE user_info 
+                                    SET Name='" + AlteringGroup.Name + @"',
+                                        Description='" + AlteringGroup.Description + @"'
+                                    WHERE ID=" + AlteringGroup.id_info;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                query = @"UPDATE usergroup 
+                                    SET ID_role=" + AlteringGroup.id_role + @"
+                                    WHERE ID=" + AlteringGroup.ID;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void InsertGroup(GlobalClass.GroupsCreateMapper InsertingGroup)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO user_info (`Name`,`Description`)
+                                    VALUES ('" + InsertingGroup.Name + "','" + InsertingGroup.Description + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id = -1;
+                inserted_id = cmd.LastInsertedId;
+                if (inserted_id > -1)
+                {
+                    query = @"INSERT INTO aquser (`ID_info`,`ID_role`)
+                                     VALUES ('" + inserted_id + "','" + InsertingGroup.id_role +"')";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                }
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void DeleteGroup(int deleteID)
+        {
+
+
+            if (this.openConnection() == true)
+            {
+                string SelectGroupInfoID = "select a.id_info from  usergroup as a where ID=" + deleteID;
+
+                MySqlCommand cmd = new MySqlCommand(SelectGroupInfoID, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                dataReader.Read();
+                long II = (int)((long)dataReader["id_info"]);
+                dataReader.Close();
+
+                string DeleteGroupInfoQuery = "DELETE FROM `group_info` WHERE ID=" + II;
+                MySqlCommand cmd1 = new MySqlCommand(DeleteGroupInfoQuery, dbConnect);
+                cmd1.ExecuteNonQuery();
+                
+
+                this.CloseConnection();
+            }
+        }
         public BindingList<GlobalClass.classifMapper> SelectGroups()
         {
             string query = @"SELECT a.ID, a.Name FROM 

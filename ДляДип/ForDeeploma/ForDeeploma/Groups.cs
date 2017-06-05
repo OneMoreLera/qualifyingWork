@@ -14,7 +14,7 @@ namespace ForDeeploma
     {
         private int GroupId;
         private BindingList<GlobalClass.classifMapper> rolesList;
-        private GlobalClass.GroupsCreateMapper AlteringRole;
+        private GlobalClass.GroupsCreateMapper AlteringGroup;
         DBConnect elementBase = new DBConnect();
         Boolean newGroup;
         public Groups()
@@ -31,10 +31,10 @@ namespace ForDeeploma
 
         private void AlterGroup()
         {
-            AlteringRole = elementBase.SelectRoleWhere(this.GroupId);
-            this.NameT.Text = AlteringRole.Name;
-            this.DescriptionT.Text = AlteringRole.Description;
-            this.rolesSelector.SelectedValue = AlteringRole.id_role;
+            AlteringGroup = elementBase.SelectRoleWhere(this.GroupId);
+            this.NameT.Text = AlteringGroup.Name;
+            this.DescriptionT.Text = AlteringGroup.Description;
+            this.rolesSelector.SelectedValue = AlteringGroup.id_role;
         }
         private void Groups_Load(object sender, EventArgs e)
         {
@@ -53,6 +53,11 @@ namespace ForDeeploma
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            AlteringGroup.Name = this.NameT.Text;
+            AlteringGroup.Description = this.DescriptionT.Text;
+            AlteringGroup.id_role = (int)this.rolesSelector.SelectedValue;
+            if (!this.newGroup) elementBase.UpdateGroup(AlteringGroup);
+            else elementBase.InsertGroup(AlteringGroup);
             this.Close();
         }
     }
