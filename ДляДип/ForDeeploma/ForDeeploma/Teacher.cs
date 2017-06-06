@@ -23,16 +23,9 @@ namespace ForDeeploma
             InitializeComponent();
 
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Teacher_Load(object sender, EventArgs e)
         {
             ForDeeploma.GlobalClass.incrementCounter();
-            this.dataGridView1.ContextMenuStrip = this.contextMenuDG;
         }
 
         private void Teacher_FormClosed(object sender, FormClosedEventArgs e)
@@ -41,20 +34,11 @@ namespace ForDeeploma
             ForDeeploma.GlobalClass.decrementCounter();
         }
 
-        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        private void добавитьПредметToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            NewSubject Adding = new NewSubject();
+            Adding.ShowDialog();
         }
-
-        private void списокПредметовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        
     }
 }
