@@ -535,5 +535,426 @@ namespace ForDeeploma
             }
         }
         //===================================================
+        //запросы по предметам
+        public List<GlobalClass.subjectMapper> SelectSubject()
+        {
+            string query = @"SELECT a.ID, a.Name, a.Description FROM subject as a";
+            List<GlobalClass.subjectMapper> tempSubjectList = new List<GlobalClass.subjectMapper>();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    string D = (string)dataReader["Description"];
+                    GlobalClass.subjectMapper tempSubject = new GlobalClass.subjectMapper(I, N, D);
+                    tempSubjectList.Add(tempSubject);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempSubjectList;
+            }
+            else
+            {
+                return tempSubjectList;
+            }
+        }
+        public void InsertSubject(GlobalClass.subjectMapper InsertingSubject)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO subject (`Name`,`Description`)
+                                    VALUES ('" + InsertingSubject.Name + "','" + InsertingSubject.Description + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void DeleteSubject(int deleteID)
+        {
+
+
+            if (this.openConnection() == true)
+            {
+
+                string DeleteQuery = "DELETE FROM `subject` WHERE ID=" + deleteID;
+                MySqlCommand cmd1 = new MySqlCommand(DeleteQuery, dbConnect);
+                cmd1.ExecuteNonQuery();
+
+
+                this.CloseConnection();
+            }
+        }
+        //===================================================
+        //запрос по вопросам
+        /*public GlobalClass.GroupsCreateMapper SelectRoleWhere(int id)
+        {
+            string query = @"select a.ID, b.Name, b.Description, a.ID_info, a.ID_role FROM usergroup as a
+                            JOIN group_info as b ON b.ID = a.ID_info
+                            where a.ID = " + id.ToString() + " limit 1";
+            GlobalClass.GroupsCreateMapper tempGroup = new GlobalClass.GroupsCreateMapper();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int II = (int)((long)dataReader["ID_info"]);
+                    int IR = (int)((long)dataReader["ID_role"]);
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    string D = (string)dataReader["Description"];
+                    tempGroup = new GlobalClass.GroupsCreateMapper(I, N, D, II, IR);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempGroup;
+            }
+            else
+            {
+                return tempGroup;
+            }
+        }
+        public void UpdateGroup(GlobalClass.GroupsCreateMapper AlteringGroup)
+        {
+            //Open connection
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"UPDATE user_info 
+                                    SET Name='" + AlteringGroup.Name + @"',
+                                        Description='" + AlteringGroup.Description + @"'
+                                    WHERE ID=" + AlteringGroup.id_info;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                query = @"UPDATE usergroup 
+                                    SET ID_role=" + AlteringGroup.id_role + @"
+                                    WHERE ID=" + AlteringGroup.ID;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void InsertGroup(GlobalClass.GroupsCreateMapper InsertingGroup)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO user_info (`Name`,`Description`)
+                                    VALUES ('" + InsertingGroup.Name + "','" + InsertingGroup.Description + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id = -1;
+                inserted_id = cmd.LastInsertedId;
+                if (inserted_id > -1)
+                {
+                    query = @"INSERT INTO aquser (`ID_info`,`ID_role`)
+                                     VALUES ('" + inserted_id + "','" + InsertingGroup.id_role + "')";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                }
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void DeleteGroup(int deleteID)
+        {
+
+
+            if (this.openConnection() == true)
+            {
+                string SelectGroupInfoID = "select a.id_info from  usergroup as a where ID=" + deleteID;
+
+                MySqlCommand cmd = new MySqlCommand(SelectGroupInfoID, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                dataReader.Read();
+                long II = (int)((long)dataReader["id_info"]);
+                dataReader.Close();
+
+                string DeleteGroupInfoQuery = "DELETE FROM `group_info` WHERE ID=" + II;
+                MySqlCommand cmd1 = new MySqlCommand(DeleteGroupInfoQuery, dbConnect);
+                cmd1.ExecuteNonQuery();
+
+
+                this.CloseConnection();
+            }
+        }*/
+        public System.Data.DataTable SelectQuestions(int idSubject)
+        {
+            string query = @"SELECT 
+                                `a`.`ID` AS `ID`,
+                                `a`.`Question` AS `Вопрос`,
+                                (SELECT 
+                                        COUNT(`b`.`ID_A`)
+                                    FROM
+                                        `qs_ar` `b`
+                                    WHERE
+                                        (`b`.`ID_Q` = `a`.`ID`)) AS `Количество ответов`
+                             FROM
+                                `questions` `a`
+                             WHERE
+                                a.ID_subject = " + idSubject;
+            System.Data.DataTable tempQList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempQList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempQList;
+            }
+            else
+            {
+                return tempQList;
+            }
+        }
+        /*public System.Data.DataTable SelectGroupsInfo()
+        {
+            string query = "select * from groupinfoview";
+            System.Data.DataTable tempList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempList;
+            }
+            else
+            {
+                return tempList;
+            }
+        }*/
+        //===================================================
+        //запрос по Тестам
+        /*public GlobalClass.GroupsCreateMapper SelectRoleWhere(int id)
+        {
+            string query = @"select a.ID, b.Name, b.Description, a.ID_info, a.ID_role FROM usergroup as a
+                            JOIN group_info as b ON b.ID = a.ID_info
+                            where a.ID = " + id.ToString() + " limit 1";
+            GlobalClass.GroupsCreateMapper tempGroup = new GlobalClass.GroupsCreateMapper();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int II = (int)((long)dataReader["ID_info"]);
+                    int IR = (int)((long)dataReader["ID_role"]);
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    string D = (string)dataReader["Description"];
+                    tempGroup = new GlobalClass.GroupsCreateMapper(I, N, D, II, IR);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempGroup;
+            }
+            else
+            {
+                return tempGroup;
+            }
+        }
+        public void UpdateGroup(GlobalClass.GroupsCreateMapper AlteringGroup)
+        {
+            //Open connection
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"UPDATE user_info 
+                                    SET Name='" + AlteringGroup.Name + @"',
+                                        Description='" + AlteringGroup.Description + @"'
+                                    WHERE ID=" + AlteringGroup.id_info;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                query = @"UPDATE usergroup 
+                                    SET ID_role=" + AlteringGroup.id_role + @"
+                                    WHERE ID=" + AlteringGroup.ID;
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void InsertGroup(GlobalClass.GroupsCreateMapper InsertingGroup)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO user_info (`Name`,`Description`)
+                                    VALUES ('" + InsertingGroup.Name + "','" + InsertingGroup.Description + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id = -1;
+                inserted_id = cmd.LastInsertedId;
+                if (inserted_id > -1)
+                {
+                    query = @"INSERT INTO aquser (`ID_info`,`ID_role`)
+                                     VALUES ('" + inserted_id + "','" + InsertingGroup.id_role + "')";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                }
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        public void DeleteGroup(int deleteID)
+        {
+
+
+            if (this.openConnection() == true)
+            {
+                string SelectGroupInfoID = "select a.id_info from  usergroup as a where ID=" + deleteID;
+
+                MySqlCommand cmd = new MySqlCommand(SelectGroupInfoID, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                dataReader.Read();
+                long II = (int)((long)dataReader["id_info"]);
+                dataReader.Close();
+
+                string DeleteGroupInfoQuery = "DELETE FROM `group_info` WHERE ID=" + II;
+                MySqlCommand cmd1 = new MySqlCommand(DeleteGroupInfoQuery, dbConnect);
+                cmd1.ExecuteNonQuery();
+
+
+                this.CloseConnection();
+            }
+        }*/
+        public System.Data.DataTable SelectTests(int idSubject)
+        {
+            string query = @"SELECT 
+                                a.ID AS ID,
+                                b.Description AS Описание,
+                                IF((b.Availble = 1),
+                                            'Да',
+                                            'Нет') AS Доступность,
+                                (SELECT count(c.ID_question) from test_pool as c WHERE
+                                        (c.ID_test = a.ID)) AS `Количество вопросов`
+                            FROM
+                                test as a
+                            JOIN test_info as b ON b.ID = a.ID_info
+                            WHERE a.ID_subject=" + idSubject;
+            System.Data.DataTable tempTList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempTList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempTList;
+            }
+            else
+            {
+                return tempTList;
+            }
+        }
+        /*public System.Data.DataTable SelectGroupsInfo()
+        {
+            string query = "select * from groupinfoview";
+            System.Data.DataTable tempList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempList;
+            }
+            else
+            {
+                return tempList;
+            }
+        }*/
     }
 }

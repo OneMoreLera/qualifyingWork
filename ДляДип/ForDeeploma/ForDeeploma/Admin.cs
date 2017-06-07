@@ -119,7 +119,6 @@ namespace ForDeeploma
                 this.AdminGridView.Columns["ID"].Visible = false;
             }
         }
-
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)//це изменить
         {
             if (this.selectedTab == 0)
@@ -141,7 +140,6 @@ namespace ForDeeploma
                 this.AdminGridView.Columns["ID"].Visible = false;
             }
         }
-
         private void удалитьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (this.selectedTab == 0)
@@ -164,6 +162,11 @@ namespace ForDeeploma
         private void dataGridView_CellMouseEnter(object sender,DataGridViewCellEventArgs location)
         {
             this.mouseLocation = location;
+        }
+
+        private void PanelLayout_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

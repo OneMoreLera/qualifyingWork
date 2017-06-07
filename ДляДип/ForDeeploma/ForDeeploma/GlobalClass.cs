@@ -140,5 +140,33 @@ namespace ForDeeploma
             }
             
         }
+        public class subjectMapper
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public subjectMapper() { }
+            public subjectMapper(int Id, string _Name, string _Description)
+            {
+                this.ID = Id;
+                this.Name = _Name;
+                this.Description = _Description;
+            }
+
+        }
+        public class QuestionSubjectMapper
+        {
+            public int ID { get; set; }
+            public string Question { get; set; }
+            public int AnswerCount { get; set; }
+            public QuestionSubjectMapper() { }
+            public QuestionSubjectMapper(int Id, string _Question, int _AnswerCount)
+            {
+                this.ID = Id;
+                this.Question = _Question;
+                this.AnswerCount = _AnswerCount;
+            }
+
+        }
     }
 }
