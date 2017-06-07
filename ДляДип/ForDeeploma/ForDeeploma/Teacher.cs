@@ -172,5 +172,11 @@ namespace ForDeeploma
         {
 
         }
+
+        private void добавитьВопросToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddQuestion AddQuestWin = new AddQuestion();
+            AddQuestWin.ShowDialog();
+        }
     }
 }

@@ -570,6 +570,40 @@ namespace ForDeeploma
                 return tempSubjectList;
             }
         }
+        public BindingList<GlobalClass.subjectMapper> SelectSubjectClr()
+        {
+            string query = @"SELECT a.ID, a.Name, a.Description FROM subject as a";
+            BindingList<GlobalClass.subjectMapper> tempSubjectList = new BindingList<GlobalClass.subjectMapper>();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string N = (string)dataReader["Name"];
+                    string D = (string)dataReader["Description"];
+                    GlobalClass.subjectMapper tempSubject = new GlobalClass.subjectMapper(I, N, D);
+                    tempSubjectList.Add(tempSubject);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempSubjectList;
+            }
+            else
+            {
+                return tempSubjectList;
+            }
+        }
         public void InsertSubject(GlobalClass.subjectMapper InsertingSubject)
         {
             if (this.openConnection() == true)
