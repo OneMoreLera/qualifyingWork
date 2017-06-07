@@ -780,44 +780,7 @@ namespace ForDeeploma
         }*/
         //===================================================
         //запрос по Тестам
-        /*public GlobalClass.GroupsCreateMapper SelectRoleWhere(int id)
-        {
-            string query = @"select a.ID, b.Name, b.Description, a.ID_info, a.ID_role FROM usergroup as a
-                            JOIN group_info as b ON b.ID = a.ID_info
-                            where a.ID = " + id.ToString() + " limit 1";
-            GlobalClass.GroupsCreateMapper tempGroup = new GlobalClass.GroupsCreateMapper();
-
-            if (this.openConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    int II = (int)((long)dataReader["ID_info"]);
-                    int IR = (int)((long)dataReader["ID_role"]);
-                    int I = (int)((long)dataReader["ID"]);
-                    string N = (string)dataReader["Name"];
-                    string D = (string)dataReader["Description"];
-                    tempGroup = new GlobalClass.GroupsCreateMapper(I, N, D, II, IR);
-                }
-
-                //close Data Reader
-                dataReader.Close();
-
-                //close Connection
-                this.CloseConnection();
-
-                //return list to be displayed
-                return tempGroup;
-            }
-            else
-            {
-                return tempGroup;
-            }
-        }
-        public void UpdateGroup(GlobalClass.GroupsCreateMapper AlteringGroup)
+        /*public void UpdateGroup(GlobalClass.GroupsCreateMapper AlteringGroup)
         {
             //Open connection
             if (this.openConnection() == true)
@@ -887,6 +850,70 @@ namespace ForDeeploma
                 this.CloseConnection();
             }
         }*/
+        public GlobalClass.QuestionAnswersMapper SelectQuestionWithAnswers(int id)
+        {
+            string questionQuery = @"select a.ID, a.Question from questions as a where a.ID = " + id;
+            string answersQuery = @"select  b.ID, b.answer, b.true_variant 
+                                    from qs_ar as a 
+                                    join answer as b ON b.ID = a.ID_A
+                                    where a.ID_Q = " + id;
+
+            List<GlobalClass.AnswerMapper> Answers = new List<GlobalClass.AnswerMapper>();
+            GlobalClass.QuestionAnswersMapper tempQ = new GlobalClass.QuestionAnswersMapper();
+            GlobalClass.AnswerMapper RightAnswer = new GlobalClass.AnswerMapper();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(answersQuery, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string A = (string)dataReader["answer"];
+                    int F = (int)((ulong)dataReader["true_variant"]);
+                    Boolean Fl;
+                    if (F == 1)
+                    {
+                        Fl = true;
+                        RightAnswer = new GlobalClass.AnswerMapper(I, A, true);
+                    }
+                    else
+                    {
+                        Fl = false;
+                    }
+                    GlobalClass.AnswerMapper tempAnswer = new GlobalClass.AnswerMapper(I, A, Fl);
+                    Answers.Add(tempAnswer);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                cmd = new MySqlCommand(questionQuery, dbConnect);
+                dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string A = (string)dataReader["Question"];
+                    tempQ = new GlobalClass.QuestionAnswersMapper(I, A, Answers.Count, Answers, RightAnswer);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempQ;
+            }
+            else
+            {
+                return tempQ;
+            }
+        }
         public System.Data.DataTable SelectTests(int idSubject)
         {
             string query = @"SELECT 

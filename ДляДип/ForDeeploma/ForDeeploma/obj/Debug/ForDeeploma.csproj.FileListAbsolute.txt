@@ -57,3 +57,4 @@ C:\Users\MoreLera\Documents\GitHub\qualifyingWork\ДляДип\ForDeeploma\ForDe
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.AboutProgramm.resources
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.Test.resources
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.NewSubject.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.SelectedQuestion.resources

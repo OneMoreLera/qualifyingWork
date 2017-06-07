@@ -147,7 +147,10 @@ namespace ForDeeploma
 
         private void подробностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            int rowId = (int)((long)TeacherGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+            GlobalClass.QuestionAnswersMapper OneQuestion = this.elementBase.SelectQuestionWithAnswers(rowId);
+            SelectedQuestion SelQuest = new SelectedQuestion(OneQuestion);
+            SelQuest.ShowDialog();
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -161,6 +164,11 @@ namespace ForDeeploma
         }
 
         private void изменитьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void списокВопросовПоПредметуToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
