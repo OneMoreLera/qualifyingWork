@@ -27,14 +27,12 @@ namespace ForDeeploma
             InitializeComponent();
             this.SetTest = Test;
             this.CurrQuestion = this.SetTest[0];
-            this.SetTest.Remove(this.CurrQuestion);
             this.QuestionBox.Text = this.CurrQuestion.Question;
             checkBoxes = new List<CheckBox>();
             int i = 0;
             foreach (GlobalClass.AnswerMapper sd in this.CurrQuestion.Answers)
             {
                 System.Windows.Forms.CheckBox AnswerCheckBox = new System.Windows.Forms.CheckBox();
-                checkBoxes.Add(AnswerCheckBox);
                 AnswerCheckBox.AutoSize = true;
                 AnswerCheckBox.Name = "AnswerCheckBox" + i;
                 AnswerCheckBox.Size = new System.Drawing.Size(431, 167);
@@ -82,29 +80,30 @@ namespace ForDeeploma
 
         private void Next_Click(object sender, EventArgs e)
         {
-            if (this.SetTest.Count > 0)
-            {
-                List<GlobalClass.AnswerMapper> StudAnswers = new List<GlobalClass.AnswerMapper>();
-                int i = 0;
-                foreach (System.Windows.Forms.CheckBox chkBx in this.checkBoxes)
-                {
-                    if (chkBx.Checked)
-                        StudAnswers.Add(this.CurrQuestion.Answers[i]);
-                    this.tableLayoutPanel1.Controls.Remove(chkBx);
-                    i++;
-                }
-                GlobalClass.StudQuestionAnswersMapper StudAnswer = new GlobalClass.StudQuestionAnswersMapper(this.CurrQuestion.ID, this.CurrQuestion.ID_subject,this.CurrQuestion.Question,this.CurrQuestion.AnswerCount,this.CurrQuestion.Answers,StudAnswers);
-                StudAns.Add(StudAnswer);
+            this.SetTest.Remove(this.CurrQuestion);
 
+            List<GlobalClass.AnswerMapper> StudAnswers = new List<GlobalClass.AnswerMapper>();
+            int i = 0;
+            foreach (System.Windows.Forms.CheckBox chkBx in this.checkBoxes)
+            {
+                if (chkBx.Checked)
+                    StudAnswers.Add(this.CurrQuestion.Answers[i]);
+                this.tableLayoutPanel1.Controls.Remove(chkBx);
+                i++;
+            }
+            GlobalClass.StudQuestionAnswersMapper StudAnswer = new GlobalClass.StudQuestionAnswersMapper(this.CurrQuestion.ID, this.CurrQuestion.ID_subject, this.CurrQuestion.Question, this.CurrQuestion.AnswerCount, this.CurrQuestion.Answers, StudAnswers);
+            StudAns.Add(StudAnswer);
+
+            if (this.SetTest.Count > 0)
+            {   
+                
                 this.CurrQuestion = this.SetTest[0];
-                this.SetTest.Remove(this.CurrQuestion);
                 this.QuestionBox.Text = this.CurrQuestion.Question;
                 checkBoxes = new List<CheckBox>();
                 i = 0;
                 foreach (GlobalClass.AnswerMapper sd in this.CurrQuestion.Answers)
                 {
                     System.Windows.Forms.CheckBox AnswerCheckBox = new System.Windows.Forms.CheckBox();
-                    checkBoxes.Add(AnswerCheckBox);
                     AnswerCheckBox.AutoSize = true;
                     AnswerCheckBox.Name = "AnswerCheckBox" + i;
                     AnswerCheckBox.Size = new System.Drawing.Size(431, 167);
@@ -118,6 +117,28 @@ namespace ForDeeploma
             }
             else
             {
+                int right_answers = 0;
+                foreach (GlobalClass.StudQuestionAnswersMapper SA in StudAns)
+                {
+                    int right_count = 0;
+                    foreach (GlobalClass.AnswerMapper Ans in SA.Answers)
+                       if (Ans.isTrue) right_count++;
+                    
+                    int stud_right_count = 0;
+                    
+                    if (right_count == SA.StudAnswers.Count)
+                    {
+                        foreach(GlobalClass.AnswerMapper Ans in SA.StudAnswers)
+                            if (Ans.isTrue) stud_right_count++;
+                        if (stud_right_count == right_count) right_answers++;
+                    }
+                }
+
+                string message = "Вы ответили на " + right_answers + " из " + this.StudAns.Count + ";";
+                string caption = "Окончание теста";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                this.Hide();
+                MessageBox.Show(message, caption, buttons);
                 this.Close();
             }
         }

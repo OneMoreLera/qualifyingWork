@@ -32,8 +32,8 @@
             this.QuestionBox = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Next = new System.Windows.Forms.Button();
             this.Prev = new System.Windows.Forms.Button();
+            this.Next = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.MainContainer)).BeginInit();
             this.MainContainer.Panel1.SuspendLayout();
             this.MainContainer.Panel2.SuspendLayout();
@@ -48,6 +48,7 @@
             // 
             this.MainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainContainer.Location = new System.Drawing.Point(0, 0);
+            this.MainContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MainContainer.Name = "MainContainer";
             this.MainContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -58,18 +59,20 @@
             // MainContainer.Panel2
             // 
             this.MainContainer.Panel2.Controls.Add(this.splitContainer1);
-            this.MainContainer.Size = new System.Drawing.Size(874, 491);
-            this.MainContainer.SplitterDistance = 89;
+            this.MainContainer.Size = new System.Drawing.Size(656, 399);
+            this.MainContainer.SplitterDistance = 72;
+            this.MainContainer.SplitterWidth = 3;
             this.MainContainer.TabIndex = 0;
             // 
             // QuestionBox
             // 
             this.QuestionBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.QuestionBox.Location = new System.Drawing.Point(0, 0);
+            this.QuestionBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.QuestionBox.Multiline = true;
             this.QuestionBox.Name = "QuestionBox";
             this.QuestionBox.ReadOnly = true;
-            this.QuestionBox.Size = new System.Drawing.Size(874, 89);
+            this.QuestionBox.Size = new System.Drawing.Size(656, 72);
             this.QuestionBox.TabIndex = 0;
             this.QuestionBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -77,6 +80,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -88,8 +92,9 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Prev);
             this.splitContainer1.Panel2.Controls.Add(this.Next);
-            this.splitContainer1.Size = new System.Drawing.Size(874, 398);
-            this.splitContainer1.SplitterDistance = 347;
+            this.splitContainer1.Size = new System.Drawing.Size(656, 324);
+            this.splitContainer1.SplitterDistance = 282;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -99,39 +104,44 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(874, 347);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(656, 282);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // Next
-            // 
-            this.Next.Location = new System.Drawing.Point(741, 2);
-            this.Next.Name = "Next";
-            this.Next.Size = new System.Drawing.Size(130, 36);
-            this.Next.TabIndex = 0;
-            this.Next.Text = "Следующий";
-            this.Next.UseVisualStyleBackColor = true;
-            this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
             // Prev
             // 
-            this.Prev.Location = new System.Drawing.Point(605, 2);
+            this.Prev.Location = new System.Drawing.Point(454, 2);
+            this.Prev.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Prev.Name = "Prev";
-            this.Prev.Size = new System.Drawing.Size(130, 36);
+            this.Prev.Size = new System.Drawing.Size(98, 29);
             this.Prev.TabIndex = 1;
             this.Prev.Text = "Предыдущий";
             this.Prev.UseVisualStyleBackColor = true;
             this.Prev.Click += new System.EventHandler(this.Prev_Click);
             // 
+            // Next
+            // 
+            this.Next.Location = new System.Drawing.Point(556, 2);
+            this.Next.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Next.Name = "Next";
+            this.Next.Size = new System.Drawing.Size(98, 29);
+            this.Next.TabIndex = 0;
+            this.Next.Text = "Следующий";
+            this.Next.UseVisualStyleBackColor = true;
+            this.Next.Click += new System.EventHandler(this.Next_Click);
+            // 
             // TestingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(874, 491);
+            this.ClientSize = new System.Drawing.Size(656, 399);
             this.Controls.Add(this.MainContainer);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "TestingForm";
             this.Text = "TestingForm";
             this.MainContainer.Panel1.ResumeLayout(false);

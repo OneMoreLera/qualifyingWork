@@ -27,7 +27,7 @@ CREATE TABLE `answer` (
   `answer` text,
   `true_variant` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` VALUES (1,'2',0),(2,'3',0),(3,'4',1),(4,'5',0),(5,'6',1),(6,'7',0),(7,'8',1),(8,'9',0),(9,'10',0),(10,'11',0),(11,'21',1),(12,'1',0),(13,'ответ',0),(14,'ответ',0),(15,'ответ',1);
+INSERT INTO `answer` VALUES (16,'Целостность',1),(17,'Аутентификация',0),(18,'Конфиденциальность',1),(19,'Доступность',1),(20,'Инкапсуляция',0),(21,'реализацию права на доступ к информации»',1),(22,'соблюдение норм международного права в сфере информационной безопасности',0),(23,'обеспечение защиты информации от неправомерного доступа, уничтожения, модифицирования, блокирования, копирования, предоставления, распространения, а также от иных неправомерных действий в отношении такой информации',1),(24,'соблюдение конфиденциальности информации ограниченного доступа',1),(25,'выявление нарушителей и привлечение их к ответственности',0),(26,'разработку методов и усовершенствование средств информационной безопасности',0),(27,'непреднамеренная утрата носителя информации',0),(28,'несанкционированный процесс переноса информации от источника к злоумышленнику',1),(29,'процесс уничтожения информации',0),(30,'процесс раскрытия секретной информации',0),(31,'внедрения агрессивного программного кода в рамках активных объектов Web-страниц',0),(32,'вмешательства в личную жизнь',0),(33,'несанкционированного управления удаленным компьютером',1),(34,'перехвата или подмены данных на путях транспортировки',0),(35,'поставки неприемлемого содержания',0),(36,'активная',0),(37,'пассивная',1);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +172,7 @@ CREATE TABLE `qs_ar` (
 
 LOCK TABLES `qs_ar` WRITE;
 /*!40000 ALTER TABLE `qs_ar` DISABLE KEYS */;
-INSERT INTO `qs_ar` VALUES (1,1),(2,1),(4,1),(1,2),(4,2),(4,3),(1,4),(4,4),(1,5),(2,6),(2,7),(2,8),(3,9),(3,10),(3,11),(3,12),(5,13),(5,14),(5,15);
+INSERT INTO `qs_ar` VALUES (6,16),(6,17),(6,18),(6,19),(6,20),(7,21),(7,22),(7,23),(7,24),(7,25),(7,26),(8,27),(8,28),(8,29),(8,30),(9,31),(9,32),(9,33),(9,34),(9,35),(10,36),(10,37);
 /*!40000 ALTER TABLE `qs_ar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +190,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`ID`),
   KEY `FK_QUEST_QUEST_QUEST_SUBJECT_idx` (`ID_subject`),
   CONSTRAINT `FK_QUEST_QUEST_QUEST_SUBJECT` FOREIGN KEY (`ID_subject`) REFERENCES `subject` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +199,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,1,'Сколько будет  2*3'),(2,1,'Сколько будет 2*4'),(3,1,'Сколько будет 3*7'),(4,1,'Сколько будет 2*2'),(5,1,'Еще вопрос');
+INSERT INTO `questions` VALUES (6,4,'Отметьте три составляющие информационной безопастности'),(7,4,'В соответствии с нормами российского законодательства защита информации представляет собой принятие правовых, организационных и технических мер, направленных на …'),(8,4,'Утечка информации – это …'),(9,4,'Под угрозой удаленного администрирования в компьютерной сети понимается угроза …'),(10,4,'Вид угрозы действия, направленного на несанкционированное использование информационных ресурсов, не оказывающего при этом влияния на её функционирование – … угроза');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +242,7 @@ CREATE TABLE `subject` (
   `Name` varchar(45) DEFAULT NULL,
   `Description` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +251,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES (1,'Математика','Просто математика'),(2,'Инф. безопастность','что то еще'),(3,'Не инф безопастность','кцукцу');
+INSERT INTO `subject` VALUES (4,'Инф. безопастность','Информационная безопастность'),(5,'АИС','Автоматизация информационных систем');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +280,7 @@ CREATE TABLE `test` (
 
 LOCK TABLES `test` WRITE;
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
-INSERT INTO `test` VALUES (1,1,1);
+INSERT INTO `test` VALUES (1,1,4);
 /*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +306,7 @@ CREATE TABLE `test_info` (
 
 LOCK TABLES `test_info` WRITE;
 /*!40000 ALTER TABLE `test_info` DISABLE KEYS */;
-INSERT INTO `test_info` VALUES (1,4,1,'Пробный тест');
+INSERT INTO `test_info` VALUES (1,5,1,'Тест по информационной безопастности');
 /*!40000 ALTER TABLE `test_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +333,7 @@ CREATE TABLE `test_pool` (
 
 LOCK TABLES `test_pool` WRITE;
 /*!40000 ALTER TABLE `test_pool` DISABLE KEYS */;
-INSERT INTO `test_pool` VALUES (1,1),(1,3),(1,4);
+INSERT INTO `test_pool` VALUES (1,6),(1,7),(1,8),(1,9),(1,10);
 /*!40000 ALTER TABLE `test_pool` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -556,4 +556,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-08 17:20:04
+-- Dump completed on 2017-06-08 22:18:49

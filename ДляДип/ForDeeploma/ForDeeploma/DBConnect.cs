@@ -943,7 +943,7 @@ namespace ForDeeploma
                 {
                     int I = (int)((long)dataReader["ID"]);
                     string A = (string)dataReader["answer"];
-                    int F = (int)((ulong)dataReader["true_variant"]);
+                    int F = (int)((sbyte)dataReader["true_variant"]);
                     Boolean Fl;
                     if (F == 1)
                         Fl = true;
