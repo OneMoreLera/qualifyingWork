@@ -42,6 +42,7 @@ namespace ForDeeploma
 
             SubjectList.DataSource = elementBase.SelectSubject();
             SubjectList.DisplayMember = "Name";
+            SubjectList.ValueMember = "ID";
             ForDeeploma.GlobalClass.incrementCounter();
         }
 
@@ -101,6 +102,7 @@ namespace ForDeeploma
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             rowAddAnswer result = RowListanswer.Find(item => item.DeleteBtn == (System.Windows.Forms.Button)sender);
+            int index = RowListanswer.IndexOf(result);
             this.Controls.Remove(result.checkBx);
             this.Controls.Remove(result.AnswerT);
             result.DeleteBtn.Click -= new System.EventHandler(this.DeleteBtn_Click);
@@ -114,9 +116,31 @@ namespace ForDeeploma
             this.groupBox1.Top -= 25;
             this.SaveBtn.Top -= 25;
             this.Height -= 25;
-            RowListanswer.Remove(result);
+            
             this.NewAswer.Text = "";
             this.AddingCh.Checked = false;
+            for (int i = index + 1; i < RowListanswer.Count; i++ )
+            {
+                RowListanswer[i].AnswerT.Top -= 25;
+                RowListanswer[i].checkBx.Top -= 25;
+                RowListanswer[i].DeleteBtn.Top -= 25;
+            }
+                RowListanswer.Remove(result);
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            List<GlobalClass.AnswerMapper> Answers = new List<GlobalClass.AnswerMapper>();
+            
+
+            foreach (rowAddAnswer oneAnswer in RowListanswer)
+            {
+                GlobalClass.AnswerMapper tempAnswer = new GlobalClass.AnswerMapper(0, oneAnswer.AnswerT.Text, oneAnswer.checkBx.Checked);
+                Answers.Add(tempAnswer);
+            }
+            GlobalClass.QuestionAnswersMapper tempQ = new GlobalClass.QuestionAnswersMapper(0,(int)this.SubjectList.SelectedValue, this.QuestionT.Text, this.RowListanswer.Count , Answers);
+            elementBase.InsertQuestionWithAnswers(tempQ);
+            this.Close();
         }
     }
 }

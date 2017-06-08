@@ -182,22 +182,71 @@ namespace ForDeeploma
             }
 
         }
-        public class QuestionAnswersMapper
+
+        public class StudQuestionAnswersMapper
         {
             public int ID { get; set; }
+            public int ID_subject { get; set; }
             public string Question { get; set; }
             public int AnswerCount { get; set; }
             public List<AnswerMapper> Answers { get; set; }
-            public AnswerMapper rightAnswer { get; set; }
-            public QuestionAnswersMapper() { }
-            public QuestionAnswersMapper(int Id, string _Question, int _AnswerCount, List<AnswerMapper> _Answers, AnswerMapper _rightAnswer)
+            public List<AnswerMapper> StudAnswers { get; set; }
+            public StudQuestionAnswersMapper() { }
+            public StudQuestionAnswersMapper(int Id, int Id_subj, string _Question, int _AnswerCount, List<AnswerMapper> _Answers, List<AnswerMapper> _StudAnswers)
             {
                 this.ID = Id;
+                this.ID_subject = Id_subj;
                 this.Question = _Question;
                 this.AnswerCount = _AnswerCount;
                 this.Answers = _Answers;
-                this.rightAnswer = _rightAnswer;
+                this.StudAnswers = _StudAnswers;
             }
+        }
+        public class QuestionAnswersMapper
+        {
+            public int ID { get; set; }
+            public int ID_subject { get; set; }
+            public string Question { get; set; }
+            public int AnswerCount { get; set; }
+            public List<AnswerMapper> Answers { get; set; }
+            public QuestionAnswersMapper() { }
+            public QuestionAnswersMapper(int Id, int Id_subj, string _Question, int _AnswerCount, List<AnswerMapper> _Answers)
+            {
+                this.ID = Id;
+                this.ID_subject = Id_subj;
+                this.Question = _Question;
+                this.AnswerCount = _AnswerCount;
+                this.Answers = _Answers;
+            }
+        }
+        public class AnswerWithQuestionMapper
+        {
+            public int ID_Question { get; set; }
+            public int ID_Answer { get; set; }
+            public string Question { get; set; }
+            public string Answer { get; set; }
+            public Boolean isTrue { get; set; }
+            public AnswerWithQuestionMapper() { }
+            public AnswerWithQuestionMapper(int _ID_Question, int _ID_Answer, string _Question, string _Answer, Boolean _isTrue)
+            {
+                this.ID_Question = _ID_Question;
+                this.ID_Answer = _ID_Answer;
+                this.Question = _Question;
+                this.Answer = _Answer;
+                this.isTrue = _isTrue;
+            }
+        }
+        public class QuestionMapper
+        {
+            public int ID { get; set; }
+            public string Question { get; set; }
+            public QuestionMapper() { }
+            public QuestionMapper(int Id, string _Question)
+            {
+                this.ID = Id;
+                this.Question = _Question;
+            }
+
         }
     }
 }

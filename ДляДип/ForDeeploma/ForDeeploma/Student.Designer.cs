@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.тестыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокДосутпныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,34 +37,22 @@
             this.порядокПрохожденияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оцениваниеРезультатовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.выходToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.сдатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainPanelLayout = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "вы вошли как студент";
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.тестыToolStripMenuItem,
             this.инфоToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(546, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(728, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -74,28 +61,28 @@
             this.тестыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.списокДосутпныхToolStripMenuItem,
             this.моиРезультатыToolStripMenuItem,
-            this.выходToolStripMenuItem,
-            this.сдатьToolStripMenuItem});
+            this.выходToolStripMenuItem});
             this.тестыToolStripMenuItem.Name = "тестыToolStripMenuItem";
-            this.тестыToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.тестыToolStripMenuItem.Size = new System.Drawing.Size(61, 24);
             this.тестыToolStripMenuItem.Text = "Тесты";
             // 
             // списокДосутпныхToolStripMenuItem
             // 
             this.списокДосутпныхToolStripMenuItem.Name = "списокДосутпныхToolStripMenuItem";
-            this.списокДосутпныхToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.списокДосутпныхToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.списокДосутпныхToolStripMenuItem.Text = "Список тестов";
+            this.списокДосутпныхToolStripMenuItem.Click += new System.EventHandler(this.списокДосутпныхToolStripMenuItem_Click);
             // 
             // моиРезультатыToolStripMenuItem
             // 
             this.моиРезультатыToolStripMenuItem.Name = "моиРезультатыToolStripMenuItem";
-            this.моиРезультатыToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.моиРезультатыToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.моиРезультатыToolStripMenuItem.Text = "Мои результаты";
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.выходToolStripMenuItem.Text = "Выйти";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -105,20 +92,20 @@
             this.порядокПрохожденияToolStripMenuItem,
             this.оцениваниеРезультатовToolStripMenuItem});
             this.инфоToolStripMenuItem.Name = "инфоToolStripMenuItem";
-            this.инфоToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.инфоToolStripMenuItem.Size = new System.Drawing.Size(60, 24);
             this.инфоToolStripMenuItem.Text = "Инфо";
             // 
             // порядокПрохожденияToolStripMenuItem
             // 
             this.порядокПрохожденияToolStripMenuItem.Name = "порядокПрохожденияToolStripMenuItem";
-            this.порядокПрохожденияToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.порядокПрохожденияToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.порядокПрохожденияToolStripMenuItem.Text = "Порядок прохождения";
             this.порядокПрохожденияToolStripMenuItem.Click += new System.EventHandler(this.порядокПрохожденияToolStripMenuItem_Click);
             // 
             // оцениваниеРезультатовToolStripMenuItem
             // 
             this.оцениваниеРезультатовToolStripMenuItem.Name = "оцениваниеРезультатовToolStripMenuItem";
-            this.оцениваниеРезультатовToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.оцениваниеРезультатовToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.оцениваниеРезультатовToolStripMenuItem.Text = "Оценивание результатов";
             // 
             // оПрограммеToolStripMenuItem
@@ -126,67 +113,39 @@
             this.оПрограммеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.выходToolStripMenuItem1});
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(0, 98);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(546, 323);
-            this.dataGridView1.TabIndex = 2;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Тест";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Доступен для сдачи";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Статус";
-            this.Column3.Name = "Column3";
             // 
             // выходToolStripMenuItem1
             // 
             this.выходToolStripMenuItem1.Name = "выходToolStripMenuItem1";
-            this.выходToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.выходToolStripMenuItem1.Size = new System.Drawing.Size(128, 26);
             this.выходToolStripMenuItem1.Text = "Выход";
             // 
-            // сдатьToolStripMenuItem
+            // MainPanelLayout
             // 
-            this.сдатьToolStripMenuItem.Name = "сдатьToolStripMenuItem";
-            this.сдатьToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.сдатьToolStripMenuItem.Text = "сдать";
-            this.сдатьToolStripMenuItem.Click += new System.EventHandler(this.сдатьToolStripMenuItem_Click);
+            this.MainPanelLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPanelLayout.Location = new System.Drawing.Point(0, 28);
+            this.MainPanelLayout.Name = "MainPanelLayout";
+            this.MainPanelLayout.Size = new System.Drawing.Size(728, 491);
+            this.MainPanelLayout.TabIndex = 2;
             // 
             // Student
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 422);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(728, 519);
+            this.Controls.Add(this.MainPanelLayout);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Student";
             this.Text = "Student";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Student_FormClosed);
             this.Load += new System.EventHandler(this.Student_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,7 +153,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem тестыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокДосутпныхToolStripMenuItem;
@@ -203,12 +161,8 @@
         private System.Windows.Forms.ToolStripMenuItem инфоToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem порядокПрохожденияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оцениваниеРезультатовToolStripMenuItem;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.ToolStripMenuItem сдатьToolStripMenuItem;
+        private System.Windows.Forms.Panel MainPanelLayout;
     }
 }

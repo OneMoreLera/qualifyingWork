@@ -884,9 +884,47 @@ namespace ForDeeploma
                 this.CloseConnection();
             }
         }*/
+        public void InsertQuestionWithAnswers(GlobalClass.QuestionAnswersMapper InsertingThing)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO `questions` (`ID_subject`,`Question`)
+                                    VALUES (" + InsertingThing.ID_subject + ",'" + InsertingThing.Question + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id_Question = -1;
+                inserted_id_Question = cmd.LastInsertedId;
+                if (inserted_id_Question > -1)
+                {
+                    
+                    foreach (GlobalClass.AnswerMapper tempAnswer in InsertingThing.Answers)
+                    {
+                        query = @"INSERT INTO `answer` (`answer`,`true_variant`)
+                                     VALUES ('" + tempAnswer.Answer + "'," + (tempAnswer.isTrue?1:0) + ")";
+                        cmd.CommandText = query;
+                        cmd.ExecuteNonQuery();
+                        long inserted_id_Answer = -1;
+                        inserted_id_Answer = cmd.LastInsertedId;
+                        if (inserted_id_Answer > -1)
+                        {
+                            query = @"INSERT INTO `qs_ar` (`ID_Q`,`ID_A`)
+                                     VALUES ('" + inserted_id_Question + "'," + inserted_id_Answer + ")";
+                            cmd.CommandText = query;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    
+                }
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
         public GlobalClass.QuestionAnswersMapper SelectQuestionWithAnswers(int id)
         {
-            string questionQuery = @"select a.ID, a.Question from questions as a where a.ID = " + id;
+            string questionQuery = @"select a.ID, a.ID_subject, a.Question from questions as a where a.ID = " + id;
             string answersQuery = @"select  b.ID, b.answer, b.true_variant 
                                     from qs_ar as a 
                                     join answer as b ON b.ID = a.ID_A
@@ -894,7 +932,6 @@ namespace ForDeeploma
 
             List<GlobalClass.AnswerMapper> Answers = new List<GlobalClass.AnswerMapper>();
             GlobalClass.QuestionAnswersMapper tempQ = new GlobalClass.QuestionAnswersMapper();
-            GlobalClass.AnswerMapper RightAnswer = new GlobalClass.AnswerMapper();
 
             if (this.openConnection() == true)
             {
@@ -909,14 +946,9 @@ namespace ForDeeploma
                     int F = (int)((ulong)dataReader["true_variant"]);
                     Boolean Fl;
                     if (F == 1)
-                    {
                         Fl = true;
-                        RightAnswer = new GlobalClass.AnswerMapper(I, A, true);
-                    }
                     else
-                    {
                         Fl = false;
-                    }
                     GlobalClass.AnswerMapper tempAnswer = new GlobalClass.AnswerMapper(I, A, Fl);
                     Answers.Add(tempAnswer);
                 }
@@ -931,8 +963,9 @@ namespace ForDeeploma
                 while (dataReader.Read())
                 {
                     int I = (int)((long)dataReader["ID"]);
+                    int IS = (int)((long)dataReader["ID_subject"]);
                     string A = (string)dataReader["Question"];
-                    tempQ = new GlobalClass.QuestionAnswersMapper(I, A, Answers.Count, Answers, RightAnswer);
+                    tempQ = new GlobalClass.QuestionAnswersMapper(I, IS, A, Answers.Count, Answers);
                 }
 
                 //close Data Reader
@@ -962,6 +995,84 @@ namespace ForDeeploma
                                 test as a
                             JOIN test_info as b ON b.ID = a.ID_info
                             WHERE a.ID_subject=" + idSubject;
+            System.Data.DataTable tempTList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempTList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempTList;
+            }
+            else
+            {
+                return tempTList;
+            }
+        }
+        public List<GlobalClass.AnswerWithQuestionMapper> SelectOneTest(int idTest)
+        {
+            string query = @"CALL `selectedTest`(" + idTest + ");";
+            List<GlobalClass.AnswerWithQuestionMapper> tempList = new List<GlobalClass.AnswerWithQuestionMapper>();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int IQ = (int)((long)dataReader["idQuestion"]);
+                    int IA = (int)((long)dataReader["idAnswer"]);
+                    string Q = (string)dataReader["Question"];
+                    string A = (string)dataReader["answer"];
+                    int F = (int)((sbyte)dataReader["isTrue"]);
+                    GlobalClass.AnswerWithQuestionMapper tempSubject = new GlobalClass.AnswerWithQuestionMapper(IQ,IA,Q,A,(F==1));
+                    tempList.Add(tempSubject);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempList;
+            }
+            else
+            {
+                return tempList;
+            }
+        }
+        public System.Data.DataTable SelectTestsForUser()
+        {
+            string query = @"SELECT 
+                                a.ID AS ID,
+                                b.Description AS Описание,
+                                c.Name AS Предмет,
+                                IF((b.Availble = 1),
+                                            'Да',
+                                            'Нет') AS Доступность,
+                                (SELECT count(c.ID_question) from test_pool as c WHERE
+                                        (c.ID_test = a.ID)) AS `Количество вопросов`
+                            FROM
+                                test as a
+                            JOIN test_info as b ON b.ID = a.ID_info
+                            JOIN subject as c ON c.ID = a.ID_subject";
+
             System.Data.DataTable tempTList = new System.Data.DataTable();
 
 

@@ -18,6 +18,7 @@ namespace ForDeeploma
         private System.Windows.Forms.ToolStripMenuItem [] SubjectsForTest;
         private System.Windows.Forms.ToolStripMenuItem[] SubjectsForQuestion;
         private System.Windows.Forms.DataGridView TeacherGridView;
+        private int idSubject;
         private DataGridViewCellEventArgs mouseLocation;
         
         public void setUser(GlobalClass.userTableMapper sU)
@@ -127,7 +128,7 @@ namespace ForDeeploma
         private void SubjectItemQuestion_Click(object sender, EventArgs e)
         {
             string nameItem = ((System.Windows.Forms.ToolStripMenuItem)sender).Name;
-            int idSubject = Int32.Parse(nameItem.Split('_')[0]);
+            this.idSubject = Int32.Parse(nameItem.Split('_')[0]);
             generateTable(1);
             this.TeacherGridView.DataSource = this.elementBase.SelectQuestions(idSubject);
             this.TeacherGridView.Columns["ID"].Visible = false;
@@ -135,7 +136,7 @@ namespace ForDeeploma
         private void SubjectItemTest_Click(object sender, EventArgs e)
         {
             string nameItem = ((System.Windows.Forms.ToolStripMenuItem)sender).Name;
-            int idSubject = Int32.Parse(nameItem.Split('_')[0]);
+            this.idSubject = Int32.Parse(nameItem.Split('_')[0]);
             generateTable(2);
             this.TeacherGridView.DataSource = this.elementBase.SelectTests(idSubject);
             this.TeacherGridView.Columns["ID"].Visible = false;
@@ -151,6 +152,9 @@ namespace ForDeeploma
             GlobalClass.QuestionAnswersMapper OneQuestion = this.elementBase.SelectQuestionWithAnswers(rowId);
             SelectedQuestion SelQuest = new SelectedQuestion(OneQuestion);
             SelQuest.ShowDialog();
+            generateTable(1);
+            this.TeacherGridView.DataSource = this.elementBase.SelectQuestions(this.idSubject);
+            this.TeacherGridView.Columns["ID"].Visible = false;
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)

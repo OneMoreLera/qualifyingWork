@@ -59,3 +59,4 @@ F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.NewSubject.resources
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.SelectedQuestion.resources
 F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.AddQuestion.resources
+F:\git\qualifyingWork\ДляДип\ForDeeploma\ForDeeploma\obj\Debug\ForDeeploma.TestingForm.resources
