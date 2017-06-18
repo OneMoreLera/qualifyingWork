@@ -182,5 +182,23 @@ namespace ForDeeploma
             AddQuestion AddQuestWin = new AddQuestion();
             AddQuestWin.ShowDialog();
         }
+
+        private void добавитьТестToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenTest AddQuest = new GenTest();
+            AddQuest.ShowDialog();
+        }
+
+        private void выйтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1 LoginWin = new Form1();
+            LoginWin.Show();
+            this.Close();
+        }
+
+        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

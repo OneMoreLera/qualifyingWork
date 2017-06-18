@@ -742,6 +742,107 @@ namespace ForDeeploma
                 this.CloseConnection();
             }
         }*/
+        public List<GlobalClass.QuestionWithRepeatMapper> SelectQuestionsLimit(int idSubject, int Limit)
+        {
+            string query = @"SELECT 
+                                `a`.`ID` AS `ID`,
+                                `a`.`Question` AS `Вопрос`,
+                                (select count(*) from test_pool as b where b.ID_question = a.ID) AS `Встречается`
+                             FROM
+                                `questions` `a`
+                             WHERE
+                                a.ID_subject = " + idSubject + " order by `Встречается` limit " + Limit;
+            List<GlobalClass.QuestionWithRepeatMapper> tempQList = new List<GlobalClass.QuestionWithRepeatMapper>();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string Q = (string)dataReader["Вопрос"];
+                    int R = (int)((long)dataReader["Встречается"]);
+                    GlobalClass.QuestionWithRepeatMapper tempQuestion = new GlobalClass.QuestionWithRepeatMapper(I, Q, R);
+                    tempQList.Add(tempQuestion);
+                }
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempQList;
+            }
+            else
+            {
+                return tempQList;
+            }
+        }
+        public GlobalClass.QuestionAnswersMapper SelectQuestionWithAnswers(int id)
+        {
+            string questionQuery = @"select a.ID, a.ID_subject, a.Question from questions as a where a.ID = " + id;
+            string answersQuery = @"select  b.ID, b.answer, b.true_variant 
+                                    from qs_ar as a 
+                                    join answer as b ON b.ID = a.ID_A
+                                    where a.ID_Q = " + id;
+
+            List<GlobalClass.AnswerMapper> Answers = new List<GlobalClass.AnswerMapper>();
+            GlobalClass.QuestionAnswersMapper tempQ = new GlobalClass.QuestionAnswersMapper();
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(answersQuery, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    string A = (string)dataReader["answer"];
+                    int F = (int)((sbyte)dataReader["true_variant"]);
+                    Boolean Fl;
+                    if (F == 1)
+                        Fl = true;
+                    else
+                        Fl = false;
+                    GlobalClass.AnswerMapper tempAnswer = new GlobalClass.AnswerMapper(I, A, Fl);
+                    Answers.Add(tempAnswer);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                cmd = new MySqlCommand(questionQuery, dbConnect);
+                dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    int I = (int)((long)dataReader["ID"]);
+                    int IS = (int)((long)dataReader["ID_subject"]);
+                    string A = (string)dataReader["Question"];
+                    tempQ = new GlobalClass.QuestionAnswersMapper(I, IS, A, Answers.Count, Answers);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return tempQ;
+            }
+            else
+            {
+                return tempQ;
+            }
+        }
         public System.Data.DataTable SelectQuestions(int idSubject)
         {
             string query = @"SELECT 
@@ -781,6 +882,44 @@ namespace ForDeeploma
             else
             {
                 return tempQList;
+            }
+        }
+        public void InsertQuestionWithAnswers(GlobalClass.QuestionAnswersMapper InsertingThing)
+        {
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO `questions` (`ID_subject`,`Question`)
+                                    VALUES (" + InsertingThing.ID_subject + ",'" + InsertingThing.Question + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id_Question = -1;
+                inserted_id_Question = cmd.LastInsertedId;
+                if (inserted_id_Question > -1)
+                {
+
+                    foreach (GlobalClass.AnswerMapper tempAnswer in InsertingThing.Answers)
+                    {
+                        query = @"INSERT INTO `answer` (`answer`,`true_variant`)
+                                     VALUES ('" + tempAnswer.Answer + "'," + (tempAnswer.isTrue ? 1 : 0) + ")";
+                        cmd.CommandText = query;
+                        cmd.ExecuteNonQuery();
+                        long inserted_id_Answer = -1;
+                        inserted_id_Answer = cmd.LastInsertedId;
+                        if (inserted_id_Answer > -1)
+                        {
+                            query = @"INSERT INTO `qs_ar` (`ID_Q`,`ID_A`)
+                                     VALUES ('" + inserted_id_Question + "'," + inserted_id_Answer + ")";
+                            cmd.CommandText = query;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                }
+
+                //close connection
+                this.CloseConnection();
             }
         }
         /*public System.Data.DataTable SelectGroupsInfo()
@@ -884,101 +1023,75 @@ namespace ForDeeploma
                 this.CloseConnection();
             }
         }*/
-        public void InsertQuestionWithAnswers(GlobalClass.QuestionAnswersMapper InsertingThing)
+        public void InsertUserResult(List<GlobalClass.StudQuestionAnswersMapper> InsertingThing, int user_id, int test_id)
         {
             if (this.openConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = dbConnect;
-                string query = @"INSERT INTO `questions` (`ID_subject`,`Question`)
-                                    VALUES (" + InsertingThing.ID_subject + ",'" + InsertingThing.Question + "')";
+                string query = @"INSERT INTO `user_result` (`ID_user`,`ID_test`)
+                                    VALUES (" + user_id + ",'" + test_id + "')";
                 cmd.CommandText = query;
                 cmd.ExecuteNonQuery();
                 long inserted_id_Question = -1;
                 inserted_id_Question = cmd.LastInsertedId;
                 if (inserted_id_Question > -1)
                 {
-                    
-                    foreach (GlobalClass.AnswerMapper tempAnswer in InsertingThing.Answers)
+
+                    foreach (GlobalClass.StudQuestionAnswersMapper tempQuestion in InsertingThing)
                     {
-                        query = @"INSERT INTO `answer` (`answer`,`true_variant`)
-                                     VALUES ('" + tempAnswer.Answer + "'," + (tempAnswer.isTrue?1:0) + ")";
-                        cmd.CommandText = query;
-                        cmd.ExecuteNonQuery();
-                        long inserted_id_Answer = -1;
-                        inserted_id_Answer = cmd.LastInsertedId;
-                        if (inserted_id_Answer > -1)
+                        foreach (GlobalClass.AnswerMapper userAnswer in tempQuestion.StudAnswers)
                         {
-                            query = @"INSERT INTO `qs_ar` (`ID_Q`,`ID_A`)
-                                     VALUES ('" + inserted_id_Question + "'," + inserted_id_Answer + ")";
+                            query = @"INSERT INTO `usertestdetails` (`ID_user_result`,`ID_questions`,`ID_Answer`)
+                                     VALUES (" + inserted_id_Question + "," + tempQuestion.ID + "," + userAnswer.ID + ")";
                             cmd.CommandText = query;
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    
+
                 }
 
                 //close connection
                 this.CloseConnection();
             }
         }
-        public GlobalClass.QuestionAnswersMapper SelectQuestionWithAnswers(int id)
+        public void InsertNewTest(List<GlobalClass.QuestionWithRepeatMapper> InsertingThing, int subj_id, string test_descr)
         {
-            string questionQuery = @"select a.ID, a.ID_subject, a.Question from questions as a where a.ID = " + id;
-            string answersQuery = @"select  b.ID, b.answer, b.true_variant 
-                                    from qs_ar as a 
-                                    join answer as b ON b.ID = a.ID_A
-                                    where a.ID_Q = " + id;
-
-            List<GlobalClass.AnswerMapper> Answers = new List<GlobalClass.AnswerMapper>();
-            GlobalClass.QuestionAnswersMapper tempQ = new GlobalClass.QuestionAnswersMapper();
-
             if (this.openConnection() == true)
             {
-                MySqlCommand cmd = new MySqlCommand(answersQuery, dbConnect);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = dbConnect;
+                string query = @"INSERT INTO `test_info` (`Amount`,`Description`)
+                                    VALUES (" + InsertingThing.Count + ",'" + test_descr + "')";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                long inserted_id_info = -1;
+                inserted_id_info = cmd.LastInsertedId;
 
-                //Read the data and store them in the list
-                while (dataReader.Read())
+                if (inserted_id_info > -1)
                 {
-                    int I = (int)((long)dataReader["ID"]);
-                    string A = (string)dataReader["answer"];
-                    int F = (int)((sbyte)dataReader["true_variant"]);
-                    Boolean Fl;
-                    if (F == 1)
-                        Fl = true;
-                    else
-                        Fl = false;
-                    GlobalClass.AnswerMapper tempAnswer = new GlobalClass.AnswerMapper(I, A, Fl);
-                    Answers.Add(tempAnswer);
+
+                    query = @"INSERT INTO `test` (`ID_info`,`ID_subject`)
+                                    VALUES (" + inserted_id_info + "," + subj_id + ")";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                    long inserted_id_test = -1;
+                    inserted_id_test = cmd.LastInsertedId;
+                    if (inserted_id_test > -1)
+                    {
+                        foreach (GlobalClass.QuestionWithRepeatMapper tempQuestion in InsertingThing)
+                        {
+                            query = @"INSERT INTO `test_pool` (`ID_test`,`ID_question`)
+                                        VALUES (" + inserted_id_test + "," + tempQuestion.ID + ")";
+                            cmd.CommandText = query;
+                            cmd.ExecuteNonQuery();   
+                        }
+                    }
+
                 }
 
-                //close Data Reader
-                dataReader.Close();
-
-                cmd = new MySqlCommand(questionQuery, dbConnect);
-                dataReader = cmd.ExecuteReader();
-
-                //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    int I = (int)((long)dataReader["ID"]);
-                    int IS = (int)((long)dataReader["ID_subject"]);
-                    string A = (string)dataReader["Question"];
-                    tempQ = new GlobalClass.QuestionAnswersMapper(I, IS, A, Answers.Count, Answers);
-                }
-
-                //close Data Reader
-                dataReader.Close();
-                //close Connection
+                //close connection
                 this.CloseConnection();
-
-                //return list to be displayed
-                return tempQ;
-            }
-            else
-            {
-                return tempQ;
             }
         }
         public System.Data.DataTable SelectTests(int idSubject)

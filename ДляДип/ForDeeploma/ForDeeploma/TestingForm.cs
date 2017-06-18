@@ -13,18 +13,23 @@ namespace ForDeeploma
     public partial class TestingForm : Form
     {
         private List<System.Windows.Forms.CheckBox> checkBoxes;
+        private int testId;
+        private int userId;
         List<GlobalClass.QuestionAnswersMapper>  SetTest;
         List<GlobalClass.StudQuestionAnswersMapper> StudAns = new List<GlobalClass.StudQuestionAnswersMapper>();
         GlobalClass.QuestionAnswersMapper CurrQuestion;
+        private DBConnect elementBase = new DBConnect();
         public TestingForm()
         {
             InitializeComponent();
 
         }
 
-        public TestingForm( List<GlobalClass.QuestionAnswersMapper> Test)
+        public TestingForm( List<GlobalClass.QuestionAnswersMapper> Test,int test_id, int user_id)
         {
             InitializeComponent();
+            this.testId = test_id;
+            this.userId = user_id;
             this.SetTest = Test;
             this.CurrQuestion = this.SetTest[0];
             this.QuestionBox.Text = this.CurrQuestion.Question;
@@ -133,14 +138,25 @@ namespace ForDeeploma
                         if (stud_right_count == right_count) right_answers++;
                     }
                 }
-
+                elementBase.InsertUserResult(StudAns, userId, testId);
                 string message = "Вы ответили на " + right_answers + " из " + this.StudAns.Count + ";";
                 string caption = "Окончание теста";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 this.Hide();
                 MessageBox.Show(message, caption, buttons);
+
                 this.Close();
             }
+        }
+
+        private void TestingForm_Load(object sender, EventArgs e)
+        {
+            ForDeeploma.GlobalClass.incrementCounter();
+        }
+
+        private void TestingForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ForDeeploma.GlobalClass.decrementCounter();
         }
     }
 }

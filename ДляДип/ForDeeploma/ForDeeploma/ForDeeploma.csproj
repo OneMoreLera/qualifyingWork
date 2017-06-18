@@ -92,6 +92,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenTest.Designer.cs">
+      <DependentUpon>GenTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalClass.cs" />
     <Compile Include="Groups.cs">
       <SubType>Form</SubType>
@@ -157,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenTest.resx">
+      <DependentUpon>GenTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Groups.resx">
       <DependentUpon>Groups.cs</DependentUpon>

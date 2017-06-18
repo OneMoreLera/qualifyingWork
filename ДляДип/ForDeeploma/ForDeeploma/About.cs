@@ -21,5 +21,15 @@ namespace ForDeeploma
         {
             this.Close();
         }
+
+        private void About_Load(object sender, EventArgs e)
+        {
+            ForDeeploma.GlobalClass.incrementCounter();
+        }
+
+        private void About_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ForDeeploma.GlobalClass.decrementCounter();
+        }
     }
 }

@@ -48,7 +48,7 @@
             // 
             this.MainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainContainer.Location = new System.Drawing.Point(0, 0);
-            this.MainContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MainContainer.Margin = new System.Windows.Forms.Padding(2);
             this.MainContainer.Name = "MainContainer";
             this.MainContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -68,7 +68,7 @@
             // 
             this.QuestionBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.QuestionBox.Location = new System.Drawing.Point(0, 0);
-            this.QuestionBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.QuestionBox.Margin = new System.Windows.Forms.Padding(2);
             this.QuestionBox.Multiline = true;
             this.QuestionBox.Name = "QuestionBox";
             this.QuestionBox.ReadOnly = true;
@@ -80,7 +80,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -104,7 +104,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -116,7 +116,7 @@
             // Prev
             // 
             this.Prev.Location = new System.Drawing.Point(454, 2);
-            this.Prev.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Prev.Margin = new System.Windows.Forms.Padding(2);
             this.Prev.Name = "Prev";
             this.Prev.Size = new System.Drawing.Size(98, 29);
             this.Prev.TabIndex = 1;
@@ -127,7 +127,7 @@
             // Next
             // 
             this.Next.Location = new System.Drawing.Point(556, 2);
-            this.Next.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Next.Margin = new System.Windows.Forms.Padding(2);
             this.Next.Name = "Next";
             this.Next.Size = new System.Drawing.Size(98, 29);
             this.Next.TabIndex = 0;
@@ -141,9 +141,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 399);
             this.Controls.Add(this.MainContainer);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TestingForm";
             this.Text = "TestingForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TestingForm_FormClosed);
+            this.Load += new System.EventHandler(this.TestingForm_Load);
             this.MainContainer.Panel1.ResumeLayout(false);
             this.MainContainer.Panel1.PerformLayout();
             this.MainContainer.Panel2.ResumeLayout(false);

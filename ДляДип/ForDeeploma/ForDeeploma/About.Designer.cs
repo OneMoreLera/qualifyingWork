@@ -73,6 +73,8 @@
             this.Controls.Add(this.label1);
             this.Name = "About";
             this.Text = "About";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.About_FormClosed);
+            this.Load += new System.EventHandler(this.About_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

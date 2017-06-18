@@ -154,17 +154,17 @@ namespace ForDeeploma
             }
 
         }
-        public class QuestionSubjectMapper
+        public class QuestionWithRepeatMapper
         {
             public int ID { get; set; }
             public string Question { get; set; }
-            public int AnswerCount { get; set; }
-            public QuestionSubjectMapper() { }
-            public QuestionSubjectMapper(int Id, string _Question, int _AnswerCount)
+            public int Repeat { get; set; }
+            public QuestionWithRepeatMapper() { }
+            public QuestionWithRepeatMapper(int Id, string _Question, int _Repeat)
             {
                 this.ID = Id;
                 this.Question = _Question;
-                this.AnswerCount = _AnswerCount;
+                this.Repeat = _Repeat;
             }
 
         }

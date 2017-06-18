@@ -140,8 +140,13 @@ namespace ForDeeploma
                 setQuestion.Add(tempQuestion);
             }
 
-            TestingForm NewTest = new TestingForm(setQuestion);
+            TestingForm NewTest = new TestingForm(setQuestion,rowId,selectedUser.ID);
             NewTest.ShowDialog();
+        }
+
+        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
