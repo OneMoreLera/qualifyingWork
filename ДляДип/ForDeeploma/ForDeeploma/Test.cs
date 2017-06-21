@@ -16,5 +16,10 @@ namespace ForDeeploma
         {
             InitializeComponent();
         }
+
+        private void Test_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

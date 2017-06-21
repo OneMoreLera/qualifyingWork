@@ -200,5 +200,21 @@ namespace ForDeeploma
         {
             this.Close();
         }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowId = (int)((long)TeacherGridView.Rows[this.mouseLocation.RowIndex].Cells["ID"].Value);
+            this.elementBase.DeleteTest(rowId);
+            generateTable(2);
+            this.TeacherGridView.DataSource = this.elementBase.SelectTests(idSubject);
+            this.TeacherGridView.Columns["ID"].Visible = false;
+        }
+
+        private void статистикаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            generateTable(3);
+            this.TeacherGridView.DataSource = this.elementBase.SelectAllStat();
+            this.TeacherGridView.Columns["ID"].Visible = false;
+        }
     }
 }

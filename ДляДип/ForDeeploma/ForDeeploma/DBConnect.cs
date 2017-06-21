@@ -952,6 +952,49 @@ namespace ForDeeploma
             }
         }*/
         //===================================================
+        //статистика
+        public System.Data.DataTable SelectAllStat()
+        {
+            string query = @"Select 
+                                ur.ID,
+	                            concat(ui.Surname,' ',right(ui.Name,1),'. ',right(ui.Patronym,1),'.') as `ФИО`,
+                                ti.Description as `Тест`,
+                                ur.end_time  as `Время`,
+                                user_answers_count(ur.ID_test,ur.ID) as `Количество верных`,
+                                ti.Amount as `Всего вопросов`
+                            from  user_result as ur
+                            join aquser as au on au.ID = ur.ID_user
+                            join user_info as ui on ui.ID = au.ID_info
+                            join test as t on t.ID = ur.ID_test
+                            join test_info as ti on ti.id = t.ID_info";
+
+            System.Data.DataTable tempTList = new System.Data.DataTable();
+
+
+            if (this.openConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, dbConnect);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+
+                tempTList.Load(dataReader);
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+
+                //return list to be displayed
+                return tempTList;
+            }
+            else
+            {
+                return tempTList;
+            }
+        }
+        //===================================================
         //запрос по Тестам
         /*public void UpdateGroup(GlobalClass.GroupsCreateMapper AlteringGroup)
         {
@@ -1023,6 +1066,24 @@ namespace ForDeeploma
                 this.CloseConnection();
             }
         }*/
+        public void DeleteTest(int deleteID)
+        {
+
+
+            if (this.openConnection() == true)
+            {
+                string UpdateTest = @"update test_info
+                                            set test_info.Availble = 0
+                                            where test_info.ID in (select test.ID_info from test where test.ID = " + deleteID + ")";
+
+                MySqlCommand cmd2 = new MySqlCommand(UpdateTest, dbConnect);
+                cmd2.ExecuteNonQuery();
+
+
+
+                this.CloseConnection();
+            }
+        }
         public void InsertUserResult(List<GlobalClass.StudQuestionAnswersMapper> InsertingThing, int user_id, int test_id)
         {
             if (this.openConnection() == true)
@@ -1107,7 +1168,7 @@ namespace ForDeeploma
                             FROM
                                 test as a
                             JOIN test_info as b ON b.ID = a.ID_info
-                            WHERE a.ID_subject=" + idSubject;
+                            WHERE  b.Availble = 1 and a.ID_subject=" + idSubject;
             System.Data.DataTable tempTList = new System.Data.DataTable();
 
 
@@ -1184,7 +1245,8 @@ namespace ForDeeploma
                             FROM
                                 test as a
                             JOIN test_info as b ON b.ID = a.ID_info
-                            JOIN subject as c ON c.ID = a.ID_subject";
+                            JOIN subject as c ON c.ID = a.ID_subject
+                            Where b.Availble = 1";
 
             System.Data.DataTable tempTList = new System.Data.DataTable();
 
